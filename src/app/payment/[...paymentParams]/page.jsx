@@ -30,7 +30,7 @@ export default function IosPayment({ params }) {
   }
 
   const handleVerifyPayment = async (orderResponse) => {
-    console.log("\norderResponse of razorpay => ", orderResponse);
+    // console.log("\norderResponse of razorpay => ", orderResponse);
     const toastId = toast.loading("Verifying Payment....");
     // await new Promise((r) => setTimeout(r, 3000));
 
@@ -71,7 +71,7 @@ export default function IosPayment({ params }) {
       const response = await axios.post(`${API}/app/razorpay/createOrder`, {
         amount,
         note: {
-          AppId: "NCF",
+          AppId: "The_Wellness_Point",
           PlanName:
             parseInt(planType) === 1 ? "Monthly Plan" : "3 Month Offer Plan",
         },
@@ -98,19 +98,19 @@ export default function IosPayment({ params }) {
           amount: amount.toString(),
           note: order.notes,
           currency: order.currency,
-          name: "NCF",
-          description: "Payment for NCF",
+          name: "The Wellness Point",
+          description: "Payment for TWP",
           order_id: order.id,
           handler: async function (orderResponse) {
             handleVerifyPayment(orderResponse, amount);
           },
           prefill: {
-            name: "NCF User",
+            name: "TWP User",
             email: "abc@gmail.com",
             contact: "9988776655",
           },
           theme: {
-            color: "#E97A4A",
+            color: "#006231",
           },
           retry: false,
         };
