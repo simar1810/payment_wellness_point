@@ -1,8 +1,16 @@
+import Home from "@/components/Home/page";
+import Numbers from "@/components/Numbers/page";
+import Coach from "@/components/Coach/page";
 
-export default function Home() {
+export default function Main() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      
-    </main>
+    <>
+      <Home/>
+      <Numbers/>
+      <Coach/>
+    </>
   );
 }
+
+
+// designs in fit india figma
