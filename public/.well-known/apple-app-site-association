@@ -3,7 +3,7 @@
     "apps": [],
     "details": [
       {
-        "appIDs": ["S8QB4VV633.com.example.deeplinkCookbook"],
+        "appIDs": ["YB5RW5JH8M.com.wellnessz.wellnesspoint"],
         "paths": ["*"],
         "components": [
           {
@@ -14,6 +14,6 @@
     ]
   },
   "webcredentials": {
-    "apps": ["S8QB4VV633.com.example.deeplinkCookbook"]
+    "apps": ["YB5RW5JH8M.com.wellnessz.wellnesspoint"]
   }
 }
