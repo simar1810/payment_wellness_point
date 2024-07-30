@@ -1,8 +1,23 @@
+import Home from "@/components/Home/page";
+import Numbers from "@/components/Numbers/page";
+import Coach from "@/components/Coach/page";
+import Features from "@/components/Features/page";
+import Who from "@/components/Who/page";
+import Testimonials from "@/components/Testimonials/page";
+import Join from "@/components/Join/page";
+import Footer from "@/components/Footer/page";
 
-export default function Home() {
+export default function Main() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      
-    </main>
+    <>
+      <Home/>
+      <Numbers/>
+      <Coach/>
+      <Features/>
+      <Who/>
+      <Testimonials/>
+      <Join/>
+      <Footer/>
+    </>
   );
 }
