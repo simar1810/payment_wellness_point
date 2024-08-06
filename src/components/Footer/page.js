@@ -9,7 +9,7 @@ export default function Footer() {
             <div className="flex gap-20 md:gap-6 lg:gap-0 flex-wrap justify-between py-12 ">
                 <div className="flex flex-col gap-3 w-full md:w-[25%]">
                     <Image src = "/logo.png" alt="logo" width={89} height={89} className="md:self-center" />
-                    <p className="opacity-60">Lorem ipsum dolor sit amet consectetur adipiscing elit aliquam</p>
+                    <p className="opacity-60">Powered by WellnessZ As TNJ</p>
                     <div className="flex gap-4 cursor-pointer text-[#006231] ">
                         <FaFacebookF/>
                         <FaTwitter/>
