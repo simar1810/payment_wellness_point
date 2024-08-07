@@ -1,0 +1,15 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.updevelop.wellness_z_mvvm",
+      "sha256_cert_fingerprints": [
+        "9E:02:5A:DC:FF:A0:2B:F8:6B:DD:DA:2E:2C:E5:7E:1B:01:C9:70:B7:0C:7C:50:36:B3:24:B5:90:03:B0:B5:29",
+        "BD:79:B1:BF:57:DD:9A:1E:82:EA:EF:A6:A4:F2:5D:99:44:93:85:2C:A9:83:7A:B8:9C:22:AD:8D:C0:5D:8A:7D",
+        "E6:CD:B3:04:6C:F4:2E:AD:9C:5D:77:FE:C5:88:70:4B:14:14:0F:D3:CF:D5:6A:EF:D4:39:FE:27:B6:E0:9C:26",
+        "E8:58:F4:84:3E:38:FC:07:05:C9:C3:C9:E5:64:DA:1D:F6:7F:85:EB:E6:DC:FD:78:78:53:35:06:30:CE:F3:9C"
+      ]
+    }
+  }
+]
