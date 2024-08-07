@@ -8,7 +8,7 @@ export const metadata = {
   title: "The Wellness Point",
   description: "Transform your Health with Wellnessz",
   icons: {
-    icon: '/logo.png',
+    icon: '/logo.png', 
   },
 };
 
