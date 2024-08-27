@@ -99,24 +99,24 @@ export default function IosPayment({ params }) {
 
         console.log("order => ", order);
         const options = {
-          image: "/White.png",
+          image: "/logo.svg",
           key: RAZORPAY_API_KEY,
           amount: amount.toString(),
           note: order.notes,
           currency: order.currency,
-          name: "WellnessZ",
-          description: "Payment for WellnessZ",
+          name: "The Wellness Point",
+          description: "Payment for TWP",
           order_id: order.id,
           handler: async function (orderResponse) {
             handleVerifyPayment(orderResponse, amount);
           },
           prefill: {
-            name: "WellnessZ User",
+            name: "TWP User",
             email: "abc@gmail.com",
             contact: "9988776655",
           },
           theme: {
-            color: "#7AC143",
+            color: "#006231",
           },
           retry: false,
         };
