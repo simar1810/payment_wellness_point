@@ -1,20 +1,22 @@
 "use client";
-import FailurePaymentPopup from "@/components/popups/failurePaymentPopup";
-import SuccessPaymentPopup from "@/components/popups/successPaymentPopup";
-import { API, RAZORPAY_API_KEY } from "@/config";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+// import { API, RAZORPAY_API_KEY } from "../../../../../config";
+import SuccessPaymentPopup from "@/components/popups/successPaymentPopup";
+import FailurePaymentPopup from "@/components/popups/failurePaymentPopup";
+import { API, RAZORPAY_API_KEY } from "@/config";
 
 export default function IosPayment({ params }) {
   // console.log("params of /payment/[...paymentParams] => ", params);
 
   const [isSuccessPaymentModal, setIsSuccessPaymentModal] = useState(false);
   const [isFailurePaymentModal, setIsFailurePaymentModal] = useState(false);
-  const [amount = "", coachId, planType] = params.paymentParams;
+
+  const [amount = "", coachId, planType, updateMode, subscriptionId = ""] =
+    params.paymentParams;
   // console.log("amount => ", amount);
   // console.log("coachId => ", coachId);
-  // console.log("planType => ", planType);
 
   function loadScript(src) {
     return new Promise((resolve) => {
@@ -32,33 +34,36 @@ export default function IosPayment({ params }) {
   }
 
   const handleVerifyPayment = async (orderResponse) => {
-    // console.log("\norderResponse of razorpay => ", orderResponse);
+    console.log("\norderResponse of razorpay => ", orderResponse);
     const toastId = toast.loading("Verifying Payment....");
     // await new Promise((r) => setTimeout(r, 3000));
 
     try {
       const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
         orderResponse;
-      const response = await axios.post(`${API}/app/addSubscriptionIos`, {
+      const response = await axios.put(`${API}/app/extendSubscriptionIos`, {
         coachId,
-        planType: parseInt(planType),
+        planType,
         razorpay_order_id,
         razorpay_payment_id,
         razorpay_signature,
         amount,
+        updateMode,
+        subscriptionId,
       });
 
       console.log("response of verifying order api => ", response);
       if (response.status === 200) {
         toast.success("Payment Successful!");
-        setIsSuccessPaymentModal(true)
-      }
+        setIsSuccessPaymentModal(true);
+      } else setIsFailurePaymentModal(true);
     } catch (err) {
       console.log("error in verifying payment api", err);
+      setIsFailurePaymentModal(true);
       toast.error(
         err?.message ||
-        err?.response?.data?.message ||
-        "Payment Failed! Try Again!"
+          err?.response?.data?.message ||
+          "Payment Failed! Try Again!"
       );
     }
     toast.dismiss(toastId);
@@ -66,15 +71,15 @@ export default function IosPayment({ params }) {
 
   const displayRazorpay = async () => {
     if (!amount || amount.length === 0) return;
+
     const toastId = toast.loading("Please Wait....");
 
     try {
       const response = await axios.post(`${API}/app/razorpay/createOrder`, {
         amount,
         note: {
-          AppId: "The_Wellness_Point",
-          PlanName:
-            parseInt(planType) === 1 ? "Monthly Plan" : parseInt(planType) === 3 ? "3 Month Offer Plan" : parseInt(planType) === 6 ? "6 Month Plan" : "12 month plan",
+          AppId: "WellnessZ",
+          PlanName: planType,
         },
       });
 
@@ -87,7 +92,6 @@ export default function IosPayment({ params }) {
 
         if (!res) {
           toast.error("RazorPay failed to load");
-          setIsFailurePaymentModal(true)
           return;
         }
 
@@ -95,24 +99,24 @@ export default function IosPayment({ params }) {
 
         console.log("order => ", order);
         const options = {
-          image: "/logo.svg",
+          image: "/White.png",
           key: RAZORPAY_API_KEY,
           amount: amount.toString(),
           note: order.notes,
           currency: order.currency,
-          name: "The Wellness Point",
-          description: "Payment for TWP",
+          name: "WellnessZ",
+          description: "Payment for WellnessZ",
           order_id: order.id,
           handler: async function (orderResponse) {
             handleVerifyPayment(orderResponse, amount);
           },
           prefill: {
-            name: "TWP User",
+            name: "WellnessZ User",
             email: "abc@gmail.com",
             contact: "9988776655",
           },
           theme: {
-            color: "#006231",
+            color: "#7AC143",
           },
           retry: false,
         };
@@ -128,8 +132,8 @@ export default function IosPayment({ params }) {
       console.log("error in ordering api", err);
       toast.error(
         err?.message ||
-        err?.response?.data?.message ||
-        "Payment Failed! Try Again!"
+          err?.response?.data?.message ||
+          "Payment Failed! Try Again!"
       );
     }
 
@@ -146,6 +150,7 @@ export default function IosPayment({ params }) {
         isSuccessPaymentModal={isSuccessPaymentModal}
         setIsSuccessPaymentModal={setIsSuccessPaymentModal}
       />
+
       <FailurePaymentPopup
         isFailurePaymentModal={isFailurePaymentModal}
         setIsFailurePaymentModal={setIsFailurePaymentModal}
