@@ -2,12 +2,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useRouter } from 'next/navigation';
+// const puppeteer = require('puppeteer');
 // import { API, RAZORPAY_API_KEY } from "../../../../../config";
 import SuccessPaymentPopup from "@/components/popups/successPaymentPopup";
 import FailurePaymentPopup from "@/components/popups/failurePaymentPopup";
 import { API, RAZORPAY_API_KEY } from "@/config";
 
 export default function IosPayment({ params }) {
+  const router = useRouter();
   // console.log("params of /payment/[...paymentParams] => ", params);
 
   const [isSuccessPaymentModal, setIsSuccessPaymentModal] = useState(false);
@@ -37,7 +40,7 @@ export default function IosPayment({ params }) {
     console.log("\norderResponse of razorpay => ", orderResponse);
     const toastId = toast.loading("Verifying Payment....");
     // await new Promise((r) => setTimeout(r, 3000));
-
+   
     try {
       const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
         orderResponse;
@@ -56,6 +59,8 @@ export default function IosPayment({ params }) {
       if (response.status === 200) {
         toast.success("Payment Successful!");
         setIsSuccessPaymentModal(true);
+        
+        router.push('https://www.thewellnesspoint.club');
       } else setIsFailurePaymentModal(true);
     } catch (err) {
       console.log("error in verifying payment api", err);
