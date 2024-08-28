@@ -1,24 +1,25 @@
 "use client";
-import FailurePaymentPopup from "@/components/popups/failurePaymentPopup";
-import SuccessPaymentPopup from "@/components/popups/successPaymentPopup";
-import { API, RAZORPAY_API_KEY } from "@/config";
-import { useRouter } from 'next/navigation';
-
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useRouter } from 'next/navigation';
+// const puppeteer = require('puppeteer');
+// import { API, RAZORPAY_API_KEY } from "../../../../../config";
+import SuccessPaymentPopup from "@/components/popups/successPaymentPopup";
+import FailurePaymentPopup from "@/components/popups/failurePaymentPopup";
+import { API, RAZORPAY_API_KEY } from "@/config";
 
 export default function IosPayment({ params }) {
   const router = useRouter();
-
   // console.log("params of /payment/[...paymentParams] => ", params);
 
   const [isSuccessPaymentModal, setIsSuccessPaymentModal] = useState(false);
   const [isFailurePaymentModal, setIsFailurePaymentModal] = useState(false);
-  const [amount = "", coachId, planType] = params.paymentParams;
+
+  const [amount = "", coachId, planType, updateMode, subscriptionId = ""] =
+    params.paymentParams;
   // console.log("amount => ", amount);
   // console.log("coachId => ", coachId);
-  // console.log("planType => ", planType);
 
   function loadScript(src) {
     return new Promise((resolve) => {
@@ -36,35 +37,38 @@ export default function IosPayment({ params }) {
   }
 
   const handleVerifyPayment = async (orderResponse) => {
-    // console.log("\norderResponse of razorpay => ", orderResponse);
+    console.log("\norderResponse of razorpay => ", orderResponse);
     const toastId = toast.loading("Verifying Payment....");
     // await new Promise((r) => setTimeout(r, 3000));
-
+   
     try {
       const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
         orderResponse;
-      const response = await axios.post(`${API}/app/addSubscriptionIos`, {
+      const response = await axios.put(`${API}/app/extendSubscriptionIos`, {
         coachId,
-        planType: parseInt(planType),
+        planType,
         razorpay_order_id,
         razorpay_payment_id,
         razorpay_signature,
         amount,
+        updateMode,
+        subscriptionId,
       });
 
       console.log("response of verifying order api => ", response);
       if (response.status === 200) {
         toast.success("Payment Successful!");
         setIsSuccessPaymentModal(true);
+        
         router.push('https://www.thewellnesspoint.club');
-
-      }
+      } else setIsFailurePaymentModal(true);
     } catch (err) {
       console.log("error in verifying payment api", err);
+      setIsFailurePaymentModal(true);
       toast.error(
         err?.message ||
-        err?.response?.data?.message ||
-        "Payment Failed! Try Again!"
+          err?.response?.data?.message ||
+          "Payment Failed! Try Again!"
       );
     }
     toast.dismiss(toastId);
@@ -72,15 +76,15 @@ export default function IosPayment({ params }) {
 
   const displayRazorpay = async () => {
     if (!amount || amount.length === 0) return;
+
     const toastId = toast.loading("Please Wait....");
 
     try {
       const response = await axios.post(`${API}/app/razorpay/createOrder`, {
         amount,
         note: {
-          AppId: "The_Wellness_Point",
-          PlanName:
-            parseInt(planType) === 1 ? "Monthly Plan" : parseInt(planType) === 3 ? "3 Month Offer Plan" : parseInt(planType) === 6 ? "6 Month Plan" : "12 month plan",
+          AppId: "WellnessZ",
+          PlanName: planType,
         },
       });
 
@@ -93,7 +97,6 @@ export default function IosPayment({ params }) {
 
         if (!res) {
           toast.error("RazorPay failed to load");
-          setIsFailurePaymentModal(true)
           return;
         }
 
@@ -134,8 +137,8 @@ export default function IosPayment({ params }) {
       console.log("error in ordering api", err);
       toast.error(
         err?.message ||
-        err?.response?.data?.message ||
-        "Payment Failed! Try Again!"
+          err?.response?.data?.message ||
+          "Payment Failed! Try Again!"
       );
     }
 
@@ -152,6 +155,7 @@ export default function IosPayment({ params }) {
         isSuccessPaymentModal={isSuccessPaymentModal}
         setIsSuccessPaymentModal={setIsSuccessPaymentModal}
       />
+
       <FailurePaymentPopup
         isFailurePaymentModal={isFailurePaymentModal}
         setIsFailurePaymentModal={setIsFailurePaymentModal}
