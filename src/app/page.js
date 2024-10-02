@@ -10,14 +10,14 @@ import Footer from "@/components/Footer/page";
 export default function Main() {
   return (
     <>
-      <Home/>
-      <Numbers/>
-      <Coach/>
-      <Features/>
-      <Who/>
-      <Testimonials/>
-      <Join/>
-      <Footer/>
+      <Home />
+      <Numbers />
+      <Join />
+      <Coach />
+      <Features />
+      <Who />
+      <Testimonials />
+      <Footer />
     </>
   );
 }
