@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Join() {
     return (
@@ -11,8 +12,12 @@ export default function Join() {
                 <div className="flex flex-col justify-center items-center lg:items-start">
                     <p className="text-[0.7rem] text-white md:pl-1"> Download the Wellness Point app  now</p>
                     <div className="my-2 flex gap-2">
-                        <Image src="/googlePlay.svg" alt="google play" width={140} height={60} />
-                        <Image src="/appStore.svg" alt="app store" width={140} height={60} />
+                        <Link href="/app">
+                            <Image src="/googlePlay.svg" alt="google play" width={140} height={60} />
+                        </Link>
+                        <Link href="/app">
+                            <Image src="/appStore.svg" alt="app store" width={140} height={60} />
+                        </Link>
                     </div>
                 </div>
             </div>
