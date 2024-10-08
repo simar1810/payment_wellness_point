@@ -8,7 +8,7 @@ export const API_URL = 'https://poweredby-wz.wellnessz.in/api'
 
 // export const SITE_URL = "http://localhost:3000";
 // export const SITE_URL = "https://stage-wellness-z-club.vercel.app";
-export const SITE_URL = "https://club.wellnessz.in";
+export const SITE_URL = "https://www.thewellnesspoint.club";
 
 // export const RAZORPAY_API_KEY = "rzp_test_D41uOLxmImZqDh";
 export const RAZORPAY_API_KEY = "rzp_live_SJvfJz5hBbwOZA";
