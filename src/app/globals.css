@@ -30,5 +30,6 @@
 }
 
 .slick-dots {
-    bottom: -30px; /* Adjust the positioning of dots */
+    bottom: -30px;
+    /* Adjust the positioning of dots */
 }
