@@ -12,7 +12,7 @@ const Footer = () => {
   return (
     <div className="w-full min-h-min bottom-0 gap-8 px-2 py-6 md:px-32 md:py-16 bg-[#F5F5F5] text-[#272727] flex md:justify-between ">
       <div className="h-auto flex-col  gap-4 justify-center w-44">
-        <Link href="https://wellnessz.in/" target="_blank" className=" mb-6 flex justify-center">
+        <Link href="https://www.thewellnesspoint.club/" target="_blank" className=" mb-6 flex justify-center">
           <img src="/wc-logo-white.png" className="h-24" alt="" />
         </Link>
       </div>

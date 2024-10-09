@@ -30,7 +30,7 @@ const ConnectAppStep1 = ({ setStep }) => {
         />
       </div>
       <p className='text-md font-bold text-center text-gray-600 mb-6 mt-2'>
-        Connect WellnessZ Club with app for enhanced Experience
+        Connect TWP Club with app for enhanced Experience
       </p>
       <div>
         <button

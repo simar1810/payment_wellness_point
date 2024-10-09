@@ -120,10 +120,10 @@ const Page = () => {
   return (
     <>
       <div className="md:px-12 px-4 py-12 pb-40 flex-col w-full bg-white text-[whitesmoke]">
-        <Link href="https://wellnessz.in/" target="_blank" className='flex-shrink-0 flex items-center'>
+        <Link href="https://www.thewellnesspoint.club" target="_blank" className='flex-shrink-0 flex items-center'>
           <Image
             src='/wc-logo-black.svg'
-            className='h-30 w-40'
+            className='h-28 w-28 rounded-full'
             alt='logo'
             height={100}
             width={100}
@@ -136,8 +136,8 @@ const Page = () => {
                 <span className="text-2xl md:text-3xl font-bold tracking-wider">
                   Welcome to
                 </span>
-                <div className="text-4xl md:text-5xl mt-2 mb-5 md:my-5 text-[#7AC143] font-extrabold">
-                  WellnessZ CLUB
+                <div className="text-4xl md:text-5xl mt-2 mb-5 md:my-5 text-[#036231] font-extrabold">
+                  The Wellness Point CLUB
                 </div>
               </div>
 
@@ -326,7 +326,7 @@ const Page = () => {
 
                   <button
                     type="submit"
-                    className="bg-[#7AC143] p-3 mt-8 w-full  rounded-md text-white font-bold"
+                    className="bg-[#036231] p-3 mt-8 w-full  rounded-md text-white font-bold"
                   >
                     {loading ? (
                       <div className="flex-col gap-4 w-full flex items-center justify-center py-[3px] ">

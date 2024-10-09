@@ -113,7 +113,7 @@ const ConnectAppStep2 = ({ data, loading, setData, setLoading, setStep }) => {
     <>
       <div className='mb-4 text-center'>
         <h2 className='text-3xl font-bold text-[#036231] mb-4'>
-          Connect App with WellnessZ Club
+          Connect App with TWP Club
         </h2>
         <p className='text-gray-300 text-md font-semibold text-start'>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

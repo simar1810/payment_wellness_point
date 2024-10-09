@@ -8,14 +8,14 @@ export default function Footer() {
         <section className="w-[100%] flex flex-col bg-[#EFF0F6] px-8 xl:px-20 py-6 md:text-[0.8rem] ">
             <div className="flex gap-20 md:gap-6 lg:gap-0 flex-wrap justify-between py-12 ">
                 <div className="flex flex-col gap-3 w-full md:w-[25%]">
-                    <Image src = "/logo.png" alt="logo" width={89} height={89} className="md:self-center" />
-                    <p className="opacity-60">Powered by WellnessZ As TNJ</p>
+                    <Image src="/logo.png" alt="logo" width={89} height={89} className="md:self-center" />
+                    <p className="opacity-60">Powered by WellnessZ As TWP</p>
                     <div className="flex gap-4 cursor-pointer text-[#006231] ">
-                        <FaFacebookF/>
-                        <FaTwitter/>
-                        <FaInstagram/>
-                        <FaLinkedinIn/>
-                        <FaYoutube/>
+                        <FaFacebookF />
+                        <FaTwitter />
+                        <FaInstagram />
+                        <FaLinkedinIn />
+                        <FaYoutube />
                     </div>
                 </div>
                 {/* <div className="flex w-full md:w-[auto] justify-between gap-10 items-start"> */}
@@ -45,12 +45,12 @@ export default function Footer() {
                 </div>
                 <div className="flex flex-col gap-3">
                     <h1 className="md:mb-4 opacity-100 font-bold">Contact us</h1>
-                    <div className="opacity-60 flex items-center gap-3"><FaRegEnvelope/> contact@company.com</div>
-                    <div className="opacity-60 flex items-center gap-3"><FaPhoneAlt/> (414) 687 - 5892</div>
-                    <div className="opacity-60 flex items-center gap-3"><FaLocationDot/> 794 Mcallister St San Francisco, 94102</div>
+                    <div className="opacity-60 flex items-center gap-3"><FaRegEnvelope /> contact@company.com</div>
+                    <div className="opacity-60 flex items-center gap-3"><FaPhoneAlt /> (414) 687 - 5892</div>
+                    <div className="opacity-60 flex items-center gap-3"><FaLocationDot /> 794 Mcallister St San Francisco, 94102</div>
                 </div>
             </div>
-            
+
             <div className="flex flex-col md:flex-row gap-2 items-center justify-between border-t-2 pt-4 border-gray-500">
                 <p className="opacity-60">Copyright © 2022 Company</p>
                 <div className="flex flex-col md:flex-row gap-2 items-center justify-center">

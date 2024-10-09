@@ -107,7 +107,7 @@ function LinkPage({
       </button>
 
       <p className=" text-[#036231] w-[90%] text-[30px] sm:text-[40px] font-extrabold drop-shadow-lg mt-10 text-center">
-        WellnessZ <span className=" text-black"> Link Generator </span>
+        TWP <span className=" text-black"> Link Generator </span>
       </p>
 
       <p className="text-center font-medium w-[90%]">

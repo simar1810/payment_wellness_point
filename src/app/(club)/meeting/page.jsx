@@ -8,7 +8,7 @@ function Page() {
   const router = useRouter();
 
   return (
-    <div className="h-full w-full py-10 px-10 overflow-scroll scrollbar-hide">
+    <div className="h-full w-full py-10 px-4 overflow-scroll scrollbar-hide">
       <div className="w-full bg-white rounded-lg shadow-[rgba(7,_65,_210,_0.1)_0px_9px_30px] p-4">
         <button
           className="bg-[#036231] text-white flex items-center gap-2 px-3 py-1 rounded-md ml-4"
