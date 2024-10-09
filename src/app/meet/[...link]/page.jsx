@@ -38,9 +38,9 @@ function Page({ params }) {
         <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
           <div className="relative flex items-center justify-between h-16">
             <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start border-b-2 pb-3 border-b-gray-400">
-              <Link href="https://wellnessz.in/" target="_blank" className="flex-shrink-0 flex items-center">
+              <Link href="https://www.thewellnesspoint.club" target="_blank" className="flex-shrink-0 flex items-center">
                 <Image
-                  alt="WellnessZ Logo"
+                  alt="TWP Logo"
                   height={100}
                   src="/wc-logo-black.svg"
                   width={100}
@@ -58,7 +58,7 @@ function Page({ params }) {
 
         <div className="bg-white p-6 px-10 rounded-xl  sm:mt-4 flex flex-col z-10 w-[90%] max-w-3xl shadow-[rgba(7,_65,_210,_0.1)_0px_9px_30px] h-[60vh] ">
           <p className=" text-[#036231] text-[35px] sm:text-[45px] font-extrabold drop-shadow-lg mt-5 text-center">
-            WellnessZ <span className=" text-black"> Club</span>
+            TWP <span className=" text-black"> Club</span>
           </p>
 
           <div className="w-full flex items-center justify-center flex-col font-bold text-lg mt-8 gap-5">

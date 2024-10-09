@@ -15,9 +15,9 @@ function Page() {
         <div className='max-w-7xl mx-auto px-2 sm:px-6 lg:px-8'>
           <div className='relative flex items-center justify-between h-16'>
             <div className='flex-1 flex items-center justify-center sm:items-stretch sm:justify-start border-b-2 pb-3 border-b-gray-400'>
-              <Link href="https://wellnessz.in/" target="_blank" className='flex-shrink-0 flex items-center'>
+              <Link href="https://www.thewellnesspoint.club" target="_blank" className='flex-shrink-0 flex items-center'>
                 <Image
-                  alt='WellnessZ Logo'
+                  alt='TWP Logo'
                   height={100}
                   src='/wc-logo-black.svg'
                   width={100}

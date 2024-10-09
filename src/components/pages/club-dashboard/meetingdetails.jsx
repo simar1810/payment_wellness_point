@@ -280,7 +280,7 @@ export default function Meetingdetails({ showEntries }) {
           <p className="w-[3%] flex justify-center text-center ">Sr.no</p>
           <p className="w-[23%] flex justify-center text-center">Base Link</p>
           <p className="w-[23%] flex justify-center text-center">
-            Wellnessz Link
+            TWP Link
           </p>
           <p className="w-[8%] flex justify-center text-center">Date</p>
           <p className="w-[8%] flex justify-center text-center">Time</p>

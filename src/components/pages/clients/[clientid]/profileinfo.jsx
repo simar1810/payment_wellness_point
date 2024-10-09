@@ -253,7 +253,7 @@ function Profileinfo({ clientData, fetchClientData }) {
         />
 
         <p className=" font-semibold text-[20px] mt-2">
-          {name ?? "WellnessZ Client"}
+          {name ?? "TWP Customer"}
         </p>
 
         <p className=" text-[#909090] text-base font-medium -mt-1">

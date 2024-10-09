@@ -93,7 +93,7 @@ function FunnelInsights() {
               <>
                 <div className="h-[2rem] bg-white text-[#036231] flex items-center p-[2rem] justify-center rounded-t-2xl relative">
                   <h1 className="text-[#000000] font-semibold text-[16px] md:text-[20px] mt-4">
-                    Create a Funnel with WellnessZ
+                    Create a Funnel with TWP
                   </h1>
 
                   <button

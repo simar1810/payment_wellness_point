@@ -7,7 +7,7 @@ const ConnectAppStep3 = () => {
     <>
       <div className='mb-0 text-center'>
         <h2 className='text-3xl font-bold text-[#036231] mt-4'>
-          Welcome to the New and Enhanced WellnessZ Club
+          Welcome to the New and Enhanced TWP Club
         </h2>
       </div>
       <div className='flex justify-center items-center'>

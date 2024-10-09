@@ -78,7 +78,7 @@ const Page = () => {
       />
 
       <div className='md:px-12 px-4 py-12 pb-40 flex-col w-full min-h-min bg-white text-[whitesmoke]'>
-        <Link href="https://wellnessz.in/" target="_blank" className='flex-shrink-0 flex items-center'>
+        <Link href="https://www.thewellnesspoint.club" target="_blank" className='flex-shrink-0 flex items-center'>
           <Image
             src='/wc-logo-black.svg'
             className='h-28 w-28 rounded-full'

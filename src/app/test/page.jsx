@@ -79,7 +79,7 @@ function Page({ }) {
     <>
       <div className=" w-[1450px] min-h-screen bg-white p-5 flex flex-col items-center ">
         <div className=" w-[1300px] px-12 flex items-center justify-between">
-          <Link href="https://wellnessz.in/" target="_blank" className='flex-shrink-0 flex items-center'>
+          <Link href="https://www.thewellnesspoint.club/" target="_blank" className='flex-shrink-0 flex items-center'>
             <Image src="/logo.png" alt="" height={120} width={120} />
           </Link>
           <p className=" text-3xl font-extrabold">Meeting Attendance</p>
