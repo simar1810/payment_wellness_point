@@ -25,6 +25,7 @@ function Page({ searchParams }) {
     sponseredByName: "",
     city: "",
     file: "",
+    id_no: ""
   });
 
   function handleChange(e, keyValue) {
@@ -64,7 +65,7 @@ function Page({ searchParams }) {
       toast.error("Please enter  City");
       return;
     }
-    if (clientInfo.email === "" && clientInfo.mobileNumber === "") {
+    if (clientInfo.mobileNumber === "") {
       toast.error("Please enter either email or mobile number");
       return;
     } else if (clientInfo.email !== "" && !emailRejex.test(clientInfo.email)) {
@@ -81,8 +82,8 @@ function Page({ searchParams }) {
       toast.error("please enter Joining date");
       return;
     } else {
-      setLoading(true);
       try {
+        setLoading(true);
         const apiFormData = new FormData();
         const dayjsInstance = dayjs(JoiningDate.$d);
         const formattedDate = dayjsInstance.format("YYYY-MM-DD");
@@ -163,6 +164,12 @@ function Page({ searchParams }) {
               handleChange={(e) => handleChange(e, "email")}
               value={clientInfo.email}
               placeholder={"kishore@gmail.com"}
+            />
+            <OnboardingFormInput
+              title={"Customer ID"}
+              handleChange={(e) => handleChange(e, "id_no")}
+              value={clientInfo.id_no}
+              placeholder={"cus_123"}
             />
             <div>
               <p className="text-lg font-semibold ">Joining Date</p>
