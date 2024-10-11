@@ -1,10 +1,10 @@
 export const NODE_ENV = 'prod'
 // export const NODE_ENV = 'local'  //  or 'stage'
 
-// export const API_URL = 'https://poweredby-wz.wellnessz.in/api'
+export const API_URL = 'https://poweredby-wz.wellnessz.in/api'
 // export const API_URL = "https://stage.wellnessz.in/api";
 // export const API_URL = "http://localhost:8080/api";
-export const API_URL = "http://localhost:3001/api";
+// export const API_URL = "http://localhost:3001/api";
 
 // export const SITE_URL = "http://localhost:3000";
 // export const SITE_URL = "https://stage-wellness-z-club.vercel.app";
