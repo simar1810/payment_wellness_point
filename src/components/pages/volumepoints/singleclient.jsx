@@ -17,6 +17,8 @@ function SingleClient({ client }) {
   const dispatch = useDispatch();
   // console.log(clientId._id);
 
+  if (!clientId._id) return <></>
+
   return (
     <div className=" w-full ">
       <div className=" h-[1.2px] w-full bg-[#ECECEC]"></div>
@@ -74,7 +76,7 @@ function SingleClient({ client }) {
         </div>
         <div
           onClick={() => {
-            router.push(`/club-clients/${clientId._id}`);
+            router.push(`/club-clients/${clientId?._id}`);
             dispatch(
               setDetailsTab({
                 tab: "clubClientDetailsTab",

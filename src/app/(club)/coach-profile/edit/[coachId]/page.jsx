@@ -53,7 +53,7 @@ const Page = ({ params }) => {
       formData.append("email", profileDetails.email);
       formData.append("mobileNumber", profileDetails.mobileNumber);
       formData.append("city", profileDetails.city);
-      formData.append("joiningDate", profileDetails.joiningDate);
+      formData.append("joiningDate", profileDetails.joiningDate.split("-").reverse().join("-"));
       formData.append("monthlyVpDeduction", profileDetails.monthlyVpDeduction);
       if (profileDetails.profilePhoto.data !== user?.profilePhoto) {
         formData.append("file", profileDetails.profilePhoto.data);
@@ -174,7 +174,7 @@ const Page = ({ params }) => {
                 <input
                   type="date"
                   name="joiningDate"
-                  value={profileDetails.joiningDate}
+                  defaultValue={profileDetails.joiningDate}
                   onChange={handleChange}
                   className="w-full border-2 border-gray-300 rounded-md p-2 outline-none"
                 />

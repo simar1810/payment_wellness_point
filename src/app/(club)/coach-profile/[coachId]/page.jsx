@@ -2,6 +2,7 @@
 
 import { Backicon, CameraIcon } from "@/components/svgs";
 import apiInstance from "@/helpers/api";
+import { setUser } from "@/redux/slices/userSlice";
 import { Modal } from "@mui/material";
 import { set } from "lodash";
 import Image from "next/image";
@@ -10,13 +11,14 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { IoMdClose } from "react-icons/io";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Page = ({ params }) => {
   const router = useRouter();
   // console.log("searchParams in coach-profile page => ", params);
   const coachId = params?.coachId || "";
   const { user, clubSystem = 0 } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const [showResetPasswordModal, setShowResetPasswordModal] = useState(false);
   const [resetLoading, setResetLoading] = useState(false);
   const [passwordDetails, setPasswordDetails] = useState({
@@ -95,10 +97,11 @@ const Page = ({ params }) => {
       }
       const response = await apiInstance.editCoachRollNoInitials(data);
       if (response.data.success) {
-        toast.success(`Roll no initials updated successfully - ${response.data.payload.rollNumberInitials}`)
+        toast.success(`Roll no initials updated successfully - ${response.data.payload.rollNumberInitials}`);
+        dispatch(setUser({ ...user, rollNumberInitials: response.data.payload.rollNumberInitials }));
       }
     } catch (error) {
-      console.log(error.message)
+      toast.error(error.message);
     }
   }
 

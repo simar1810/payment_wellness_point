@@ -23,6 +23,7 @@ function Page() {
     sponseredByName: "",
     city: "",
     file: "",
+    id_no: ""
   });
   // const dayjsInstance = dayjs(JoiningDate.$d);
   // Formatting the date to 'YYYY-MM-DD'
@@ -62,6 +63,8 @@ function Page() {
     } else if (clientInfo.email && !emailRejex.test(clientInfo.email)) {
       toast.error("please enter Email");
       return;
+    } else if (!clientInfo.id_no) {
+      toast.error("Please enter Customer ID.")
     } else if (
       clientInfo.mobileNumber === "" &&
       !mobileRejex.test(clientInfo.mobileNumber)
@@ -181,6 +184,13 @@ function Page() {
                 value={clientInfo.city}
                 required
                 handleChange={(e) => handleChange(e, "city")}
+              />
+              <Input
+                name={"Customer ID No."}
+                placeHolder={"ID No."}
+                value={clientInfo.id_no}
+                required
+                handleChange={(e) => handleChange(e, "id_no")}
               />
               <div className=" w-full">
                 <p>Joining Date:</p>

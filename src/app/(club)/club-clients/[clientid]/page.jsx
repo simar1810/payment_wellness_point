@@ -298,7 +298,7 @@ export default function Page({ params }) {
             </div>
             <div className="w-[50%] flex flex-col gap-1">
               <Detail name={"City"} data={clientInfo.city} />
-              <Detail name={"Customer Id"} data={clientInfo._id} />
+              {/* <Detail name={"Customer Id"} data={clientInfo._id} /> */}
               <Detail name={"Joining Date"} data={clientInfo.joiningDate} />
               <div className=" flex items-center gap-3">
                 <p className=" font-semibold text-sm">Attendance</p>
