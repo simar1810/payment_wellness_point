@@ -17,25 +17,19 @@ const Page = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const checkClubCoach = async () => {
-      try {
-        const { data, status } = await apiInstance.isClubCoach();
-        console.log("isClubCoach api res => ", data);
-        if (data.status) {
-          // if (status === 200) {
-          router.push("/club-dashboard");
-        }
-      } catch (err) {
-        console.log(err);
+  const checkClubCoach = async () => {
+    try {
+      const { data, status } = await apiInstance.isClubCoach();
+      if (data.status) {
+        router.push("/club-dashboard");
       }
-    };
-    checkClubCoach();
-  }, []);
+    } catch (err) {
+      toast.error(err.message)
+    }
+  };
 
   async function Login(data) {
     const toastId = toast.loading("Validating...");
-
     try {
       const payload = {
         email: data.get("email"),
@@ -43,12 +37,10 @@ const Page = () => {
       };
 
       const res = await apiInstance.login(payload);
-      console.log("response of login api => ", res);
 
       if (res.status === 200) {
         toast.success("Logged in Successfully, Redirecting to dashboard...");
         const isRemember = data.get("checkbox") === "on";
-        // console.log("isRemember => ", isRemember)
         Cookies.set(
           "coachId",
           res?.data?.data?._id,
@@ -63,19 +55,23 @@ const Page = () => {
         router.push("/club-dashboard");
       }
     } catch (error) {
-      console.log("error in Login fn => ", error);
-      toast.error("Login Failed");
+      toast.error(error.response.data.message || error.message || "Internal Server Error!");
     }
-
-    toast.dismiss(toastId);
+    finally {
+      toast.dismiss(toastId);
+    }
   }
+
+  useEffect(() => {
+    checkClubCoach();
+  }, []);
 
   return (
     <>
-      <RegisterModal
+      {/* <RegisterModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-      />
+      /> */}
 
       <div className='md:px-12 px-4 py-12 pb-40 flex-col w-full min-h-min bg-white text-[whitesmoke]'>
         <Link href="https://www.thewellnesspoint.club" target="_blank" className='flex-shrink-0 flex items-center'>

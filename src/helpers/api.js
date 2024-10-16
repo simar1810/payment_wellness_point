@@ -59,6 +59,10 @@ class Api {
     return this.init().post("/login", data);
   };
 
+  logout = () => {
+    return this.init().post("/coach-logout");
+  };
+
   isClubCoach = () => {
     return this.init().get("/isClubCoach");
   };

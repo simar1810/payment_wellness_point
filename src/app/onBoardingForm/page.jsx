@@ -87,12 +87,10 @@ function Page({ searchParams }) {
         const apiFormData = new FormData();
         const dayjsInstance = dayjs(JoiningDate.$d);
         const formattedDate = dayjsInstance.format("YYYY-MM-DD");
-        console.log(formattedDate);
         const newClientInfo = { ...clientInfo, joiningDate: formattedDate };
         for (const key of Object.keys(newClientInfo)) {
           apiFormData.append(key, newClientInfo[key]);
         }
-        console.log(apiFormData);
         const response = await apiInstance.registerClientForm(
           apiFormData,
           "form",
@@ -102,12 +100,13 @@ function Page({ searchParams }) {
           toast.success("Client Created Successfully");
           // router.push("https://www.wellnessz.in/");
         } else {
-          toast.error(response.data.message);
+          toast.error(response.response.data.message);
         }
       } catch (error) {
-        console.log(error);
+        toast.error(error.response.data.message)
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     }
   }
   return (

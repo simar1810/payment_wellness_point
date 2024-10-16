@@ -22,7 +22,6 @@ const AuthGuardian = ({ children }) => {
     const checkClubCoach = async () => {
       try {
         const { data } = await apiInstance.isClubCoach();
-        // console.log("isClubCoach api res in AuthGuardian => ", data);
 
         if (data.status) {
           dispatch(setIsLoggedIn(true));
@@ -52,9 +51,6 @@ const AuthGuardian = ({ children }) => {
           dispatch(setUser(user));
           dispatch(setClubSystem(parseInt(data?.data?.clubSystem) ?? 1));
 
-          // console.log("user in AuthGuardian => ", user);
-          // console.log("pathName in AuthGuardian => ", pathName);
-
           if (
             !subscriptionStatus &&
             !(pathName || "/null").includes("subscription")
@@ -68,11 +64,10 @@ const AuthGuardian = ({ children }) => {
       } catch (err) {
         toast.error("Please Login Again!");
         router.push("/login");
-        console.error("error in isClubCoach api in AuthGuardian => ", err);
       }
     };
     checkClubCoach();
-  }, [router, dispatch, isLoggedIn, pathName]);
+  }, [router, dispatch, pathName]);
 
   return isLoggedIn ? <>{children}</> : null;
 };

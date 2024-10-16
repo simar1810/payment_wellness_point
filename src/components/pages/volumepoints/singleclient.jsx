@@ -17,7 +17,7 @@ function SingleClient({ client }) {
   const dispatch = useDispatch();
   // console.log(clientId._id);
 
-  if (!clientId._id) return <></>
+  if (!clientId?._id) return <></>
 
   return (
     <div className=" w-full ">

@@ -19,6 +19,7 @@ import { setFeaturePreference } from "@/redux/slices/userSlice";
 import toast from "react-hot-toast";
 import SubscriptionSideBarIcon from "@/components/svgs/subscriptionSideBarIcon";
 import Link from "next/link";
+import apiInstance from "@/helpers/api";
 
 export default function Sidebar() {
   const router = useRouter();
@@ -51,16 +52,20 @@ export default function Sidebar() {
     dispatch(setFeaturePreference(prop));
   }
 
-  const handleLogout = () => {
-    // Cookies.remove("refreshToken");
-    // Cookies.remove("coachId");
-    const allCookies = Cookies.get();
+  const handleLogout = async () => {
+    try {
+      const response = await apiInstance.logout();
+      console.log(response)
+      const allCookies = Cookies.get();
 
-    for (const cookie in allCookies) {
-      Cookies.remove(cookie);
+      for (const cookie in allCookies) {
+        Cookies.remove(cookie);
+      }
+      router.push("/login");
+      toast.success("Logged Out Successfully");
+    } catch (error) {
+      toast.error(error.message)
     }
-    router.push("/login");
-    toast.success("Logged Out Successfully");
   };
 
   useEffect(() => {
@@ -147,8 +152,8 @@ export default function Sidebar() {
             <div
               onClick={() => Setstate("club")}
               className={`"w-full h-[35px] relative  rounded-md flex items-center  gap-3 cursor-pointer  pl-5 ${featurePreference === "club"
-                  ? "text-white bg-[#036231]"
-                  : " text-[#494949]"
+                ? "text-white bg-[#036231]"
+                : " text-[#494949]"
                 } `}
             >
               <div className=" w-[25px]">
@@ -163,8 +168,8 @@ export default function Sidebar() {
 
             <div
               className={` rounded-lg w-full pl-3 mt-1 mb-6 transition-all duration-300 ${featurePreference === "club"
-                  ? "h-[230px]"
-                  : " h-[0px] overflow-hidden"
+                ? "h-[230px]"
+                : " h-[0px] overflow-hidden"
                 } `}
             >
               <Clubfeature setOpen={setOpen} />
@@ -183,8 +188,8 @@ export default function Sidebar() {
                 setOpen(false);
               }}
               className={`"w-full h-[35px] relative  rounded-md flex items-center mt-1  gap-3 cursor-pointer  pl-5 ${featurePreference === "app"
-                  ? "text-white bg-[#036231]"
-                  : " text-[#494949]"
+                ? "text-white bg-[#036231]"
+                : " text-[#494949]"
                 } `}
             >
               <div className=" w-[25px]">
@@ -199,8 +204,8 @@ export default function Sidebar() {
 
             <div
               className={` rounded-lg mt-1 w-full pl-3 transition-all duration-300 ${featurePreference === "app"
-                  ? "h-[190px]"
-                  : " h-[0px] overflow-hidden"
+                ? "h-[190px]"
+                : " h-[0px] overflow-hidden"
                 } `}
             >
               {isAppConnected && <Appfeature setOpen={setOpen} />}
@@ -213,8 +218,8 @@ export default function Sidebar() {
               setOpen(false);
             }}
             className={`w-[92%] h-[35px] rounded-md flex items-center ml-2  gap-3 cursor-pointer  pl-5 absolute bottom-[3.6rem] ${featurePreference === "subscription"
-                ? "text-white bg-[#036231]"
-                : "text-[#494949] bg-white"
+              ? "text-white bg-[#036231]"
+              : "text-[#494949] bg-white"
               }`}
           >
             <div className="w-[25px]">
