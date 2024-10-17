@@ -23,6 +23,7 @@ import { DeleteModal } from "@/components/pages/club-clients";
 import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 import useOutsideClick from "@/hooks/useOutsideClick";
 import Loader from "@/components/loader/Loader";
+import SepcialMode from "@/components/pages/club-clients/SpecialMode";
 
 export default function Page({ params }) {
   const router = useRouter();
@@ -195,7 +196,7 @@ export default function Page({ params }) {
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-0 items-start justify-between ">
             <div className="w-full flex justify-between sm:justify-start sm:gap-4 items-center sm:items-start gap-2">
               <div className="flex w-fit items-center gap-2">
-                <p className=" text-xl font-semibold uppercase">
+                <p className="whitespace-nowrap text-xl font-semibold uppercase">
                   {clientInfo.name}
                 </p>
                 <p className=" text-[#00000080] font-medium text-sm">
@@ -406,30 +407,38 @@ export default function Page({ params }) {
               <VolumePoints
                 clientId={clientid}
                 fetchClientData={fetchClientData}
+                clubSystem={clubSystem}
               />
-            ) : (
-              <div className="min-h-[400px] flex flex-col justify-center items-center">
-                <Image
-                  src="/No data-rafiki.png"
-                  alt="no access"
-                  width={400}
-                  height={250}
-                  className="object-cover"
-                />
-                <h1 className="font-extrabold text-3xl text-[#036231] mb-2">
-                  Mode Locked
-                </h1>
-                <p className="text-[#757575] text-center w-[400px] font-semibold">
-                  You need to change your club type for accessing this
-                </p>
-                <Link
-                  href={"/club-dashboard"}
-                  className="border-2 border-[#036231] text-[#036231] font-semibold px-6 py-3 rounded-2xl mt-4"
-                >
-                  Change Now
-                </Link>
-              </div>
-            )}
+            ) : clubSystem === 3 ? <>
+              <SepcialMode
+                clientId={clientid}
+                fetchClientData={fetchClientData}
+                clubSystem={clubSystem}
+              />
+            </>
+              : (
+                <div className="min-h-[400px] flex flex-col justify-center items-center">
+                  <Image
+                    src="/No data-rafiki.png"
+                    alt="no access"
+                    width={400}
+                    height={250}
+                    className="object-cover"
+                  />
+                  <h1 className="font-extrabold text-3xl text-[#036231] mb-2">
+                    Mode Locked
+                  </h1>
+                  <p className="text-[#757575] text-center w-[400px] font-semibold">
+                    You need to change your club type for accessing this
+                  </p>
+                  <Link
+                    href={"/club-dashboard"}
+                    className="border-2 border-[#036231] text-[#036231] font-semibold px-6 py-3 rounded-2xl mt-4"
+                  >
+                    Change Now
+                  </Link>
+                </div>
+              )}
           </div>
         </div>
       </div>

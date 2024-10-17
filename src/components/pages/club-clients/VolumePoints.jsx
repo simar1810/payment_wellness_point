@@ -12,7 +12,7 @@ import toast from "react-hot-toast";
 import { IoWarning } from "react-icons/io5";
 import { Modal } from "@mui/material";
 
-const VolumePoints = ({ clientId, fetchClientData }) => {
+const VolumePoints = ({ clubSystem, clientId, fetchClientData }) => {
   const [loading, setLoading] = useState(false);
   const [volumePoints, setVolumePoints] = useState(0);
   const [pointsHistory, setPointsHistory] = useState([]);

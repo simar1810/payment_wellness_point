@@ -42,7 +42,6 @@ const AddPointsModal = ({
     try {
       setLoading(true);
       const responseData = await apiInstance.addPoints(pointsData);
-      // console.log("responseData", responseData);
       if (responseData && responseData.status === 200) {
         toast.success("Points added successfully");
         setIsAddPointsModalOpen(false);
