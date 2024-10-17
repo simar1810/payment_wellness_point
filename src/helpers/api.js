@@ -493,6 +493,9 @@ class Api {
   addSpecialPoints = (data, clientId) => {
     return this.init().post(`/special-mode-add-points?clientId=${clientId}`, data)
   }
+  deleteSpecialPointsRecord = (clientId, index) => {
+    return this.init().delete(`special-mode-delete-points?clientId=${clientId}&index=${index}`)
+  }
 }
 
 const apiInstance = new Api();

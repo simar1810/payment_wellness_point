@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 import { Modal } from "@mui/material";
 import { FaXmark } from "react-icons/fa6";
+import { DeleteIcon, EyeIcon } from "@/components/svgs";
 
 export default function SepcialMode({ clubSystem, clientId, fetchClientData }) {
 	const [isAddModalOpened, setIsAddModalOpened] = useState(false)
@@ -29,9 +30,9 @@ export default function SepcialMode({ clubSystem, clientId, fetchClientData }) {
 		<div className="text-center pl-20 mt-10 flex flex-col justify-between items-start">
 			<div className="relative inline-flex flex-col items-center justify-center w-[90px] h-[90px] pt-2 shadow-xl outline outline-[#036231] outline-[20px] outline-offset-[15px] rounded-full">
 				<span className="text-2xl font-semibold text-[#505B68]">
-					{specialPoints?.totalPoints?.toFixed(2) === "NaN"
-						? 0
-						: specialPoints?.totalPoints?.toFixed(2)}
+					{specialPoints?.totalPoints?.toFixed(2)
+						? specialPoints?.totalPoints?.toFixed(2)
+						: 0}
 				</span>
 
 				<span className="text-[12px] text-[#505B68]">Points</span>
@@ -55,6 +56,11 @@ export default function SepcialMode({ clubSystem, clientId, fetchClientData }) {
 				+ Add Points
 			</button>
 		</div>
+		{specialPoints?.pointsHistory && <PointsHistory
+			pointsHistory={specialPoints?.pointsHistory}
+			clientId={clientId}
+			refreshData={() => setDeps(prev => !prev)}
+		/>}
 		{isAddModalOpened && <AddSpecialPointsModal
 			onCloseModal={() => setIsAddModalOpened(false)}
 			refreshData={() => setDeps(prev => !prev)}
@@ -154,6 +160,118 @@ function AddSpecialPointsModal({ onCloseModal, refreshData, clientId }) {
 					{adding ? <div className="h-6 w-4 mx-auto border-b-2 border-white rounded-full animate-spin" /> : <>Add Points</>}
 				</button>
 			</form>
+		</div>
+	</Modal>
+}
+
+function PointsHistory({ pointsHistory, clientId, refreshData }) {
+	const [index, setIndex] = useState(null);
+	const [isWarningOpened, setIsWarningOpened] = useState(false);
+
+	return <div className="w-full sm:w-[53%] md:w-fit mt-10 border rounded-xl max-h-[350px] overflow-y-scroll scrollbar-hide">
+		<h3 className="text-lg font-semibold border-b p-4">
+			Points History
+		</h3>
+
+		<div className="overflow-x-auto">
+			<table className="min-w-full h-full">
+				<thead>
+					<tr className="border-b border-gray-200">
+						<th className="px-2 py-2 text-center">Order ID</th>
+						<th className="px-2 py-2 text-center">Start Date</th>
+						<th className="px-2 py-2 text-center">End Date</th>
+						<th className="px-2 py-2 text-center">Order Value</th>
+						<th className="px-2 py-2 text-center">Points Earned</th>
+						<th className="px-2 py-2 text-center">Details</th>
+						<th className="py-2 text-center"></th>
+					</tr>
+				</thead>
+
+				{pointsHistory.length === 0
+					? <tbody>
+						<tr className="mt-24">
+							<td colSpan="5" className="text-center pt-20 ">
+								No Points History Found
+							</td>
+						</tr>
+					</tbody>
+					: <tbody>
+						{pointsHistory.map((entry, index) => (
+							<tr key={entry?.orderId} className="text-sm">
+								<td className="px-4 py-2 text-center ">
+									{entry?.orderId ? entry.orderId : "-"}
+								</td>
+								<td className="px-4 py-2 text-center ">{entry?.startDate}</td>
+								<td className="px-4 py-2 text-center ">{entry?.endDate}</td>
+								<td className="px-4 py-2 text-center ">
+									{entry?.orderValue ? entry?.orderValue.toFixed(2) : "-"}
+								</td>
+								<td className="px-4 py-2 text-center">
+									{entry.addedPoints.toFixed(2)}
+								</td>
+
+								{/* <td className="px-4 py-2 text-center">
+									{entry?.orderId ? (
+										<button onClick={() => handleOrderDetails(index)}>
+											<EyeIcon c="#000" w={20} h={20} />
+										</button>
+									) : (
+										"-"
+									)}
+								</td> */}
+								<td className="px-4 py-2 text-center">
+									<button
+										onClick={() => {
+											setIndex(index)
+											setIsWarningOpened(true)
+										}}
+										className="cursor-pointer"
+									>
+										<DeleteIcon c="red" w={20} h={20} />
+									</button>
+								</td>
+							</tr>
+						))}
+					</tbody>
+				}
+			</table>
+		</div>
+		{isWarningOpened && <DeleteModal
+			isWarningOpened={isWarningOpened}
+			onCloseModal={() => {
+				setIndex(null)
+				setIsWarningOpened(false)
+			}}
+			refreshData={refreshData}
+			clientId={clientId}
+			index={index}
+		/>}
+	</div>
+}
+
+function DeleteModal({ isWarningOpened, onCloseModal, clientId, index, refreshData }) {
+	async function deleteSpecialPointsRecord() {
+		try {
+			const response = await apiInstance.deleteSpecialPointsRecord(clientId, index);
+			if (response.status === 200) {
+				onCloseModal()
+				refreshData()
+				toast.success("Record deleted successfully!")
+			}
+		} catch (error) {
+			toast.error(error?.response?.data?.message || error.message)
+		}
+	}
+	return <Modal
+		className="flex items-center justify-center"
+		open={isWarningOpened}
+		onCloseModal={onCloseModal}>
+		<div className="bg-white px-4 py-4 rounded-md">
+			<h3 className="text-xl font-semibold">Do you want to delete the record?</h3>
+			<div className="mt-4 flex items-center justify-end gap-2">
+				<button className="bg-red-500 text-white px-4 py-2 rounded-md" onClick={deleteSpecialPointsRecord}>Delete</button>
+				<button className="px-4 py-2 rounded-md border-2" onClick={onCloseModal}>Cancel</button>
+			</div>
 		</div>
 	</Modal>
 }
