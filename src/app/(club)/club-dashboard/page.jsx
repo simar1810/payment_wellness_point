@@ -104,6 +104,7 @@ function Page() {
       { id: "free", label: "Free", value: 0 },
       { id: "subscription", label: "Subscription", value: 1 },
       { id: "volumePoints", label: "Volume Points", value: 2 },
+      { id: "specialMode", label: "Special Mode", value: 3 },
     ],
     []
   );

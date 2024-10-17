@@ -26,7 +26,7 @@ const Page = () => {
   const brandId = searchParams.get("brandId");
   const clientId = searchParams.get("clientId");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
-
+  const clubSystem = useSelector(store => store.user.clubSystem)
   const cartProducts = useSelector(
     (state) => state.volumePointCheckout?.volumePointCheckout?.products
   );
@@ -96,7 +96,8 @@ const Page = () => {
 
     try {
       setLoading(true);
-      const { data, status } = await apiInstance.placeVolumePointOrder(payload);
+      const endpoint = clubSystem === 3 ? "/add-order-special-point" : "/add-vp-order"
+      const { data, status } = await apiInstance.placeVolumePointOrder(endpoint, payload);
       if (status === 200) {
         dispatch(setOrder(data.data));
         toast.success("Order placed successfully");

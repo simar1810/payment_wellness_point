@@ -416,8 +416,8 @@ class Api {
     return this.init().post(`/addVolumePoints`, data);
   };
 
-  placeVolumePointOrder = (data) => {
-    return this.init().post(`/add-vp-order`, data);
+  placeVolumePointOrder = (endpoint, data) => {
+    return this.init().post(endpoint || "/add-vp-order", data);
   };
 
   clubClientsWithVP = () => {
@@ -486,6 +486,12 @@ class Api {
   }
   importAllClientinExcel = (file) => {
     return this.init().post("/import-clients-excel", file)
+  }
+  getSpecialModeData = (clientId) => {
+    return this.init().get(`/special-mode-data?clientId=${clientId}`)
+  }
+  addSpecialPoints = (data, clientId) => {
+    return this.init().post(`/special-mode-add-points?clientId=${clientId}`, data)
   }
 }
 
