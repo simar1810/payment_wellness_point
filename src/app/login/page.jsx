@@ -24,7 +24,7 @@ const Page = () => {
         router.push("/club-dashboard");
       }
     } catch (err) {
-      toast.error(err.message)
+      Cookies.remove("refreshToken")
     }
   };
 
@@ -48,7 +48,7 @@ const Page = () => {
         );
         Cookies.set(
           "refreshToken",
-          res?.data?.data?.refreshToken,
+          res?.data?.data?.refreshToken?.at(-1),
           isRemember && { expires: 20 }
         );
         dispatch(setClubSystem(parseInt(res?.data?.data?.clubSystem) ?? 1));

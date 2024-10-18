@@ -6,6 +6,7 @@ import {
   setIsLoggedIn,
   setUser,
 } from "@/redux/slices/userSlice";
+import Cookies from "js-cookie";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import toast from "react-hot-toast";
@@ -58,12 +59,12 @@ const AuthGuardian = ({ children }) => {
             router.push("/subscription");
           }
         } else {
-          toast.error("Please Login Again!");
           router.push("/login");
+          Cookies.remove("refreshToken")
         }
       } catch (err) {
-        toast.error("Please Login Again!");
         router.push("/login");
+        Cookies.remove("refreshToken")
       }
     };
     checkClubCoach();
