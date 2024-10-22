@@ -424,8 +424,8 @@ class Api {
     return this.init().get("/clubClientsWithVP");
   };
 
-  sendOtpClubSystem = () => {
-    return this.init().post("/sendOtpToUpdateClubSystem");
+  sendOtpClubSystem = (selectedRadio) => {
+    return this.init().post("/sendOtpToUpdateClubSystem", { clubSystem: selectedRadio });
   };
 
   verifyOtpClubSystem = (data) => {
@@ -495,6 +495,9 @@ class Api {
   }
   deleteSpecialPointsRecord = (clientId, index) => {
     return this.init().delete(`special-mode-delete-points?clientId=${clientId}&index=${index}`)
+  }
+  joinMeetNewClient = (meetingLink, formData) => {
+    return this.init().post(`/join-meet-new-client?wellnessZLink=${SITE_URL}/meet/${meetingLink}`, formData);
   }
 }
 

@@ -102,7 +102,7 @@ function Page() {
   const radioOptions = useMemo(
     () => [
       { id: "free", label: "Free", value: 0 },
-      { id: "subscription", label: "Subscription", value: 1 },
+      // { id: "subscription", label: "Subscription", value: 1 },
       { id: "volumePoints", label: "Volume Points", value: 2 },
       { id: "specialMode", label: "Special Mode", value: 3 },
     ],
@@ -120,10 +120,13 @@ function Page() {
   async function handleConfirm() {
     try {
       setBtnLoading(true);
-      const { data, status } = await apiInstance.sendOtpClubSystem();
+      const { data, status } = await apiInstance.sendOtpClubSystem(selectedRadio);
       if (status === 200) {
-        toast.success("Please check your email for OTP");
-        setOpenModal(true);
+        toast.success("Club System changed successfully!");
+        // setOpenModal(true);
+        dispatch(setClubSystem(parseInt(selectedRadio)));
+        setRadioToggle(parseInt(selectedRadio));
+        setSelectedRadio("");
         setWarningModal(false);
       }
     } catch (error) {

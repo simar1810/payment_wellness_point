@@ -2,6 +2,8 @@
 
 import Footer from "@/components/core/Footer";
 import apiInstance from "@/helpers/api";
+import { SITE_URL } from "@/helpers/apiConfig";
+import { Modal } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -11,23 +13,26 @@ import toast from "react-hot-toast";
 function Page({ params }) {
   const router = useRouter();
   const [rollNo, setRollNo] = useState("");
+  const [newClientModal, setNewClientModal] = useState(false);
   const { link } = params;
 
   async function joinMeeting() {
     try {
       const { data } = await apiInstance.verifyClient(link, rollNo);
-      // console.log('data of verifyClient => ', data)
+      console.log(data)
       if (data?.status && data.status === true) {
-        console.log("data.data => ", data.data);
         router.push(data.data);
-        // window.location.href = (data.data || '')
+        console.log(data?.response?.accountFound, data.response, data)
         toast.success("Verification Success!, redirecting to meet...");
       } else {
         toast.error(data.message || data.error || "Failed to join!");
+        console.log(data)
+        if (data?.accountFound) setNewClientModal(true)
       }
     } catch (err) {
       console.log("error in verifyClient => ", err);
       toast.error(err?.response?.data?.message || "Failed to join!");
+      if (!err.response.data?.accountFound) setNewClientModal(true)
     }
   }
 
@@ -83,9 +88,109 @@ function Page({ params }) {
           </div>
         </div>
       </div>
+      {newClientModal && <NewClientModal
+        open={newClientModal}
+        onClose={() => setNewClientModal(false)}
+        meetingLink={link} />}
       <Footer />
     </>
   );
 }
 
 export default Page;
+
+function NewClientModal({ open, onClose, meetingLink }) {
+  const [joining, setJoining] = useState(false);
+  const router = useRouter();
+  const [clientCreated, setClientCreated] = useState({
+    accountDeactivated: false,
+    opened: false,
+    rollNo: null,
+    meetRedirectLink: ""
+  });
+
+  async function joinMeeting(e) {
+    try {
+      e.preventDefault();
+      setJoining(true);
+
+      const formData = {
+        name: e.currentTarget.name.value,
+        phoneNumber: e.currentTarget.phoneNumber.value,
+        city: e.currentTarget.city.value,
+        sponsor: e.currentTarget.sponsor.value,
+      }
+
+      if (!formData.name || !formData.phoneNumber) {
+        toast.error("Name & Phone Number are required!");
+        return
+      }
+
+      const response = await apiInstance.joinMeetNewClient(meetingLink, formData);
+
+      if (response?.data?.accountDeactivated) {
+        toast.error(response?.data?.message);
+        return
+      }
+      if (response?.data?.success) {
+        setClientCreated({
+          opened: true,
+          rollNo: response?.data?.rollno,
+          meetRedirectLink: response?.data?.meetRedirectLink,
+          accountDeactivated: response?.data?.accountDeactivated
+        });
+      }
+    } catch (error) {
+      toast.error(error.message || "Internal Server Error!");
+    } finally {
+      setJoining(false)
+    }
+  }
+
+  return <Modal onClose={onClose} open={open} className="flex items-center justify-center">
+    <div className="bg-white w-full max-w-[500px] px-4 py-4 rounded-md">
+      <h1 className="text-xl font-bold mb-8">Fill out the form to enter meeting</h1>
+      <form onSubmit={joinMeeting}>
+
+        <input
+          type="text"
+          className="w-full py-2 px-4 mb-4 border-2 rounded-md focus:outline-none"
+          placeholder="Enter Name"
+          name="name"
+        />
+        <input
+          type="number"
+          className="w-full py-2 px-4 mb-4 border-2 rounded-md focus:outline-none"
+          placeholder="Enter Number"
+          name="phoneNumber"
+        />
+        <input
+          type="text"
+          className="w-full py-2 px-4 mb-4 border-2 rounded-md focus:outline-none"
+          placeholder="Enter City"
+          name="city"
+        />
+        <input
+          type="text"
+          className="w-full py-2 px-4 mb-4 border-2 rounded-md focus:outline-none"
+          placeholder="Referred By"
+          name="sponsor"
+        />
+        <button type="submit" disabled={joining} className={`bg-green-600 text-white px-4 py-2 rounded-md ${joining && "cursor-not-allowed opacity-60"}`}>
+          {joining
+            ? <>Wait...</>
+            : <>Submit</>}
+        </button>
+        <div role="button" onClick={onClose} className="inline px-4 py-[8px] ml-4 border-2 border-green-600 rounded-md select-none">Cancel</div>
+      </form>
+      {clientCreated.opened && <div className="mt-8">
+        <p className="text-[20px] font-semibold">Your Roll No is - {clientCreated.rollNo}</p>
+        <button
+          className="bg-green-800 text-white px-4 py-2 mt-2 rounded-md "
+          onClick={() => router.push(clientCreated.meetRedirectLink)}>
+          Join Meet
+        </button>
+      </div>}
+    </div>
+  </Modal>
+}
