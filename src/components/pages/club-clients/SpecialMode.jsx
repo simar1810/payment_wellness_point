@@ -69,7 +69,8 @@ export default function SepcialMode({ clubSystem, clientId, fetchClientData }) {
 }
 
 function AddSpecialPointsModal({ onCloseModal, refreshData, clientId }) {
-	const [adding, setAdding] = useState(false)
+	const [adding, setAdding] = useState(false);
+	const [membershipType, setMembershipType] = useState("volume-point")
 
 	async function addPoints(e) {
 		try {
@@ -80,8 +81,14 @@ function AddSpecialPointsModal({ onCloseModal, refreshData, clientId }) {
 				endDate: e.currentTarget.endDate.value,
 				membershipType: e.currentTarget.membershipType.value,
 				invoice: e.currentTarget.invoice.value,
-				totalPoints: e.currentTarget.totalPoints.value
+				totalPoints: e.currentTarget?.totalPoints?.value,
+				paymentAmount: e.target?.paymentAmount?.value,
+				paymentMode: e.target?.paymentMode?.value,
 			}
+
+			// console.log(formData)
+			// refreshData()
+			// return
 
 			const { status, data } = await apiInstance.addSpecialPoints(formData, clientId);
 			if (status === 200) {
@@ -107,57 +114,81 @@ function AddSpecialPointsModal({ onCloseModal, refreshData, clientId }) {
 			<h1 className="text-xl bg-[#03632C] text-white text-center px-4 py-4 mb-6">Volume Points</h1>
 
 			<form className="px-4" onSubmit={addPoints}>
-				<div className="mb-4 flex items-center gap-2">
+				<div className="font-semibold mb-6 flex items-center gap-2">
 					<label className="w-1/2">
 						Start Date
 						<input
 							type="date"
 							name="startDate"
-							className="w-full text-[#808080] mt-1 px-4 py-2 focus:outline-none border-2 rounded-md" />
+							className="font-normal w-full text-[#808080] mt-1 px-4 py-2 focus:outline-none border-2 rounded-md" />
 					</label>
 					<label className="w-1/2">
 						End Date
 						<input
 							type="date"
 							name="endDate"
-							className="w-full text-[#808080] mt-1 px-4 py-2 focus:outline-none border-2 rounded-md" />
+							className="font-normal w-full text-[#808080] mt-1 px-4 py-2 focus:outline-none border-2 rounded-md" />
 					</label>
 				</div>
 
-				<label className="mb-4 block">
+				<label className="font-semibold mb-6 block">
 					Membership Type
 					<select
 						name="membershipType"
-						className="w-full text-[#808080] mt-1 px-4 py-2 focus:outline-none border-2 rounded-md cursor-pointer">
+						onChange={e => setMembershipType(e.target.value)}
+						className="font-normal w-full text-[#808080] mt-1 px-4 py-2 focus:outline-none border-2 rounded-md cursor-pointer">
 						<option value="volume-point" selected>Volume Point</option>
-						<option value="membership">Membership</option>
+						<option value="payment">Payment</option>
 					</select>
 				</label>
 
-				<label className="mb-4 block">
-					Volume Points
-					<input
-						type="number"
-						name="totalPoints"
-						placeholder="Enter Points"
-						className="w-full text-[#808080] mt-1 px-4 py-2 focus:outline-none border-2 rounded-md"
-					/>
-				</label>
+				{membershipType === "volume-point"
+					? <label className="font-semibold mb-6 block">
+						Volume Points
+						<input
+							type="number"
+							name="totalPoints"
+							placeholder="Enter Points"
+							className="font-normal w-full text-[#808080] mt-1 px-4 py-2 focus:outline-none border-2 rounded-md"
+						/>
+					</label>
+					: <>
+						<label className="font-semibold mb-6 block">
+							Payment Mode
+							<select
+								name="paymentMode"
+								onChange={e => setMembershipType(e.target.value)}
+								className="font-normal w-full text-[#808080] mt-1 px-4 py-2 focus:outline-none border-2 rounded-md cursor-pointer">
+								<option value="cash" selected>Cash</option>
+								<option value="upi">UPI</option>
+								<option value="net-banking">Net Banking</option>
+							</select>
+						</label>
+						<label className="font-semibold mb-6 block">
+							Amount
+							<input
+								type="number"
+								name="paymentAmount"
+								placeholder="Enter Points"
+								className="font-normal w-full text-[#808080] mt-1 px-4 py-2 focus:outline-none border-2 rounded-md"
+							/>
+						</label>
+					</>}
 
-				<label className="mb-4 block">
+				<label className="font-semibold mb-6 block">
 					Invoice
 					<input
 						type="text"
 						name="invoice"
 						placeholder="Enter Invoice"
-						className="w-full text-[#808080] mt-1 px-4 py-2 focus:outline-none border-2 rounded-md"
+						className="font-normal w-full text-[#808080] mt-1 px-4 py-2 focus:outline-none border-2 rounded-md"
 					/>
 				</label>
 				<button
 					type="submit"
-					className="w-full bg-[#03632C] text-white mb-4 py-3 rounded-md"
+					className="font-normal w-full bg-[#03632C] text-white mb-4 py-3 rounded-md"
 				>
-					{adding ? <div className="h-6 w-4 mx-auto border-b-2 border-white rounded-full animate-spin" /> : <>Add Points</>}
+					{adding ? <div className="h-6 w-4 mx-auto border-b-2 border-white rounded-full animate-spin" /> : <>Add Membership</>}
 				</button>
 			</form>
 		</div>
@@ -174,27 +205,28 @@ function PointsHistory({ pointsHistory, clientId, refreshData }) {
 		</h3>
 
 		<div className="overflow-x-auto">
-			<table className="min-w-full h-full">
+			<table className="min-w-full text-center h-full">
 				<thead>
 					<tr className="border-b border-gray-200">
 						<th className="px-2 py-2 text-center">Order ID</th>
 						<th className="px-2 py-2 text-center">Start Date</th>
 						<th className="px-2 py-2 text-center">End Date</th>
-						<th className="px-2 py-2 text-center">Order Value</th>
+						<th className="px-2 py-2 text-center">Invoice</th>
 						<th className="px-2 py-2 text-center">Points Earned</th>
+						<th className="px-2 py-2 text-center">Payment Mode</th>
+						<th className="px-2 py-2 text-center">Payment Amount</th>
 						<th className="px-2 py-2 text-center">Details</th>
 						<th className="py-2 text-center"></th>
 					</tr>
 				</thead>
 
 				{pointsHistory.length === 0
-					? <tbody>
-						<tr className="mt-24">
-							<td colSpan="5" className="text-center pt-20 ">
+					? <tbody className="px-10 py-12">
+						<tr>
+							<td className="font-semibold px-10 py-12" colspan="100%">
 								No Points History Found
 							</td>
-						</tr>
-					</tbody>
+						</tr>					</tbody>
 					: <tbody>
 						{pointsHistory.map((entry, index) => (
 							<tr key={entry?.orderId} className="text-sm">
@@ -204,10 +236,10 @@ function PointsHistory({ pointsHistory, clientId, refreshData }) {
 								<td className="px-4 py-2 text-center ">{entry?.startDate}</td>
 								<td className="px-4 py-2 text-center ">{entry?.endDate}</td>
 								<td className="px-4 py-2 text-center ">
-									{entry?.orderValue ? entry?.orderValue.toFixed(2) : "-"}
+									{entry?.invoice ? entry?.invoice : "-"}
 								</td>
 								<td className="px-4 py-2 text-center">
-									{entry.addedPoints.toFixed(2)}
+									{entry.addedPoints?.toFixed(2) || <>-</>}
 								</td>
 
 								{/* <td className="px-4 py-2 text-center">
@@ -219,6 +251,13 @@ function PointsHistory({ pointsHistory, clientId, refreshData }) {
 										"-"
 									)}
 								</td> */}
+								<td>
+									{entry?.paymentMode || <>-</>}
+								</td>
+								<td>
+									{entry?.paymentAmount || <>-</>}
+								</td>
+
 								<td className="px-4 py-2 text-center">
 									<button
 										onClick={() => {

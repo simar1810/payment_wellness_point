@@ -499,6 +499,12 @@ class Api {
   joinMeetNewClient = (meetingLink, formData) => {
     return this.init().post(`/join-meet-new-client?wellnessZLink=${SITE_URL}/meet/${meetingLink}`, formData);
   }
+  getFreeTrialUserDetails = (clientId) => {
+    return this.init().get(`/free-trial-user-details/${clientId}`)
+  }
+  convertCustomerToClient = (clientId) => {
+    return this.init().post(`/free-trial-convert-customer/${clientId}`);
+  }
 }
 
 const apiInstance = new Api();
