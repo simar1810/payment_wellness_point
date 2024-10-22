@@ -6,7 +6,7 @@ import { Modal } from "@mui/material";
 import { FaXmark } from "react-icons/fa6";
 import { DeleteIcon, EyeIcon } from "@/components/svgs";
 
-export default function SepcialMode({ clubSystem, clientId, fetchClientData }) {
+export default function SepcialMode({ clubSystem, clientId, fetchClientData, refreshData }) {
 	const [isAddModalOpened, setIsAddModalOpened] = useState(false)
 	const [specialPoints, setSpecialPoints] = useState(null);
 	const [deps, setDeps] = useState(false)
@@ -59,11 +59,11 @@ export default function SepcialMode({ clubSystem, clientId, fetchClientData }) {
 		{specialPoints?.pointsHistory && <PointsHistory
 			pointsHistory={specialPoints?.pointsHistory}
 			clientId={clientId}
-			refreshData={() => setDeps(prev => !prev)}
+			refreshData={refreshData}
 		/>}
 		{isAddModalOpened && <AddSpecialPointsModal
 			onCloseModal={() => setIsAddModalOpened(false)}
-			refreshData={() => setDeps(prev => !prev)}
+			refreshData={refreshData}
 			clientId={clientId} />}
 	</div>
 }
