@@ -10,7 +10,7 @@ import {
 } from "@/components/svgs";
 import apiInstance from "@/helpers/api";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import VolumePoints from "@/components/pages/club-clients/VolumePoints";
 import { useDispatch, useSelector } from "react-redux";
@@ -55,6 +55,9 @@ export default function Page({ params }) {
   const dropDownBtnRef = useRef(null);
   const dropDownRef = useRef(null);
   useOutsideClick(dropDownRef, () => setActiveDropDown(false), dropDownBtnRef);
+
+  const searchParams = useSearchParams();
+  const type = searchParams.get('type');
 
   const fetchClientData = useCallback(async () => {
     setLoading(true);
@@ -271,52 +274,58 @@ export default function Page({ params }) {
             </div>
 
             <div className="w-full flex justify-end gap-2">
-              <button
-                onClick={() => setIsDeleteModal(true)}
-                className=" h-[30px]  px-4 border-[2px] text-[14px] border-solid border-[#EA4335] text-[#EA4335] flex items-center gap-2 rounded-md"
-              >
-                <DeleteIcon h={20} w={20} c={"#EA4335"} /> Delete
-              </button>
-              <button
-                onClick={() =>
-                  router.push(`/club-clients/editClient/${clientid}`)
-                }
-                className=" h-[30px]  px-4 border-[2px] text-[14px] border-solid border-[#03632C] text-[#03632C] flex items-center gap-2 rounded-md"
-              >
-                <Editicon h={14} w={14} c={"#03632C"} /> Edit
-              </button>
+              {Number(type) === 3
+                ? <FreeTrialToCustomer clientId={clientid} />
+                : <>
+                  <button
+                    onClick={() => setIsDeleteModal(true)}
+                    className=" h-[30px]  px-4 border-[2px] text-[14px] border-solid border-[#EA4335] text-[#EA4335] flex items-center gap-2 rounded-md"
+                  >
+                    <DeleteIcon h={20} w={20} c={"#EA4335"} /> Delete
+                  </button>
+                  <button
+                    onClick={() =>
+                      router.push(`/club-clients/editClient/${clientid}`)
+                    }
+                    className=" h-[30px]  px-4 border-[2px] text-[14px] border-solid border-[#03632C] text-[#03632C] flex items-center gap-2 rounded-md"
+                  >
+                    <Editicon h={14} w={14} c={"#03632C"} /> Edit
+                  </button>
+                </>}
             </div>
           </div>
 
           <div className=" w-full h-[1.5px] bg-[#00000040]"></div>
 
-          <div className="flex flex-col sm:flex-row w-full">
-            <div className="w-[50%] flex flex-col gap-1">
-              <Detail name={"Name"} data={clientInfo.name} />
-              <Detail name={"Email"} data={clientInfo.email} />
-              <Detail name={"Mobile Number"} data={clientInfo.mobileNumber} />
-              <Detail name={"Sponsored by"} data={clientInfo.sponseredByName} />
-            </div>
-            <div className="w-[50%] flex flex-col gap-1">
-              <Detail name={"City"} data={clientInfo.city} />
-              {/* <Detail name={"Customer Id"} data={clientInfo._id} /> */}
-              <Detail name={"Joining Date"} data={clientInfo.joiningDate} />
-              <div className=" flex items-center gap-3">
-                <p className=" font-semibold text-sm">Attendance</p>
-                <p
-                  onClick={() =>
-                    router.push(
-                      `/club-clients/attendance/${clientInfo?._id ?? "na"}/${clientInfo.name ?? "na"
-                      }`
-                    )
-                  }
-                  className=" text-sm font-semibold text-[#00000080] cursor-pointer underline-offset-2 underline"
-                >
-                  View Report
-                </p>
+          {Number(type) === 3
+            ? <UserDetails clientid={clientid} />
+            : <div className="flex flex-col sm:flex-row w-full">
+              <div className="w-[50%] flex flex-col gap-1">
+                <Detail name={"Name"} data={clientInfo.name} />
+                <Detail name={"Email"} data={clientInfo.email} />
+                <Detail name={"Mobile Number"} data={clientInfo.mobileNumber} />
+                <Detail name={"Sponsored by"} data={clientInfo.sponseredByName} />
               </div>
-            </div>
-          </div>
+              <div className="w-[50%] flex flex-col gap-1">
+                <Detail name={"City"} data={clientInfo.city} />
+                {/* <Detail name={"Customer Id"} data={clientInfo._id} /> */}
+                <Detail name={"Joining Date"} data={clientInfo.joiningDate} />
+                <div className=" flex items-center gap-3">
+                  <p className=" font-semibold text-sm">Attendance</p>
+                  <p
+                    onClick={() =>
+                      router.push(
+                        `/club-clients/attendance/${clientInfo?._id ?? "na"}/${clientInfo.name ?? "na"
+                        }`
+                      )
+                    }
+                    className=" text-sm font-semibold text-[#00000080] cursor-pointer underline-offset-2 underline"
+                  >
+                    View Report
+                  </p>
+                </div>
+              </div>
+            </div>}
 
           <div className=" w-full h-[1.5px] bg-[#00000040]"></div>
 
@@ -354,69 +363,10 @@ export default function Page({ params }) {
               </button>
             )}
           </div>
-
           <div>
-            {clubSystem === 0 ? (
-              <div className="min-h-[400px] flex flex-col justify-center items-center">
-                <Image
-                  src="/No data-rafiki.png"
-                  alt="no access"
-                  width={400}
-                  height={250}
-                  className="object-cover"
-                />
-                <h1 className="font-extrabold text-3xl text-[#036231] mb-2">
-                  Mode Locked
-                </h1>
-                <p className="text-[#757575] text-center w-[400px] font-semibold">
-                  You need to change your club type for accessing this.
-                </p>
-                <Link
-                  href={"/club-dashboard"}
-                  className="border-2 border-[#036231] text-[#036231] font-semibold px-6 py-3 rounded-2xl mt-4"
-                >
-                  Change Now
-                </Link>
-              </div>
-            ) : activeTab === "Subscription" && clubSystem === 1 ? (
-              <div className="w-full overflow-x-scroll">
-                <p className=" font-semibold text-lg mb-4">
-                  Subscription Details
-                </p>
-                <div className="w-[170%] sm:w-full  text-sm  font-semibold flex justify-between gap-1">
-                  <p className=" w-[10%] flex  ">Sr.no</p>
-                  <p className=" w-[15%] flex justify-center ">Invoice No.</p>
-                  <p className=" w-[15%] flex justify-center ">Valid From</p>
-                  <p className=" w-[15%] flex justify-center ">Valid Till</p>
-                  <p className=" w-[15%] flex justify-center">
-                    Mode
-                  </p>
-                  <p className=" w-[15%] flex justify-center ">Amount</p>
-                </div>
-                <div className=" h-[1px] w-full bg-[#EEEEEE]"></div>
-
-                {subscriptionInfo.map((subscription, index) => (
-                  <InvoiceDetails
-                    key={index}
-                    subscriptionInfo={subscription}
-                    numberAt={index + 1}
-                  />
-                ))}
-              </div>
-            ) : activeTab === "VolumePoints" && clubSystem === 2 ? (
-              <VolumePoints
-                clientId={clientid}
-                fetchClientData={fetchClientData}
-                clubSystem={clubSystem}
-              />
-            ) : clubSystem === 3 ? <>
-              <SepcialMode
-                clientId={clientid}
-                fetchClientData={fetchClientData}
-                clubSystem={clubSystem}
-              />
-            </>
-              : (
+            {Number(type) === 3
+              ? <></>
+              : clubSystem === 0 ? (
                 <div className="min-h-[400px] flex flex-col justify-center items-center">
                   <Image
                     src="/No data-rafiki.png"
@@ -429,7 +379,7 @@ export default function Page({ params }) {
                     Mode Locked
                   </h1>
                   <p className="text-[#757575] text-center w-[400px] font-semibold">
-                    You need to change your club type for accessing this
+                    You need to change your club type for accessing this.
                   </p>
                   <Link
                     href={"/club-dashboard"}
@@ -438,7 +388,67 @@ export default function Page({ params }) {
                     Change Now
                   </Link>
                 </div>
-              )}
+              ) : activeTab === "Subscription" && clubSystem === 1 ? (
+                <div className="w-full overflow-x-scroll">
+                  <p className=" font-semibold text-lg mb-4">
+                    Subscription Details
+                  </p>
+                  <div className="w-[170%] sm:w-full  text-sm  font-semibold flex justify-between gap-1">
+                    <p className=" w-[10%] flex  ">Sr.no</p>
+                    <p className=" w-[15%] flex justify-center ">Invoice No.</p>
+                    <p className=" w-[15%] flex justify-center ">Valid From</p>
+                    <p className=" w-[15%] flex justify-center ">Valid Till</p>
+                    <p className=" w-[15%] flex justify-center">
+                      Mode
+                    </p>
+                    <p className=" w-[15%] flex justify-center ">Amount</p>
+                  </div>
+                  <div className=" h-[1px] w-full bg-[#EEEEEE]"></div>
+
+                  {subscriptionInfo.map((subscription, index) => (
+                    <InvoiceDetails
+                      key={index}
+                      subscriptionInfo={subscription}
+                      numberAt={index + 1}
+                    />
+                  ))}
+                </div>
+              ) : activeTab === "VolumePoints" && clubSystem === 2 ? (
+                <VolumePoints
+                  clientId={clientid}
+                  fetchClientData={fetchClientData}
+                  clubSystem={clubSystem}
+                />
+              ) : clubSystem === 3 ? <>
+                <SepcialMode
+                  clientId={clientid}
+                  fetchClientData={fetchClientData}
+                  clubSystem={clubSystem}
+                />
+              </>
+                : (
+                  <div className="min-h-[400px] flex flex-col justify-center items-center">
+                    <Image
+                      src="/No data-rafiki.png"
+                      alt="no access"
+                      width={400}
+                      height={250}
+                      className="object-cover"
+                    />
+                    <h1 className="font-extrabold text-3xl text-[#036231] mb-2">
+                      Mode Locked
+                    </h1>
+                    <p className="text-[#757575] text-center w-[400px] font-semibold">
+                      You need to change your club type for accessing this
+                    </p>
+                    <Link
+                      href={"/club-dashboard"}
+                      className="border-2 border-[#036231] text-[#036231] font-semibold px-6 py-3 rounded-2xl mt-4"
+                    >
+                      Change Now
+                    </Link>
+                  </div>
+                )}
           </div>
         </div>
       </div>
@@ -570,9 +580,9 @@ export default function Page({ params }) {
   );
 }
 
-function Detail({ name, data }) {
+function Detail({ name, data, styles }) {
   return (
-    <div className=" flex items-center gap-3">
+    <div className={` flex items-center gap-3 ${styles}`}>
       <p className=" font-semibold text-sm">{name}:</p>
       <p className=" text-sm font-semibold text-[#00000080]">{data}</p>
     </div>
@@ -603,4 +613,79 @@ function InvoiceDetails({ subscriptionInfo, numberAt }) {
       </p> */}
     </div>
   );
+}
+
+function UserDetails({ clientid }) {
+  const [userData, setUserData] = useState(null)
+
+  async function retrieveData() {
+    try {
+      const response = await apiInstance.getFreeTrialUserDetails(clientid)
+      if (response?.status === 200) {
+        setUserData(response.data.user)
+      }
+    } catch (error) {
+      toast.error(error.message || "Please try again later!")
+    }
+  }
+
+  useEffect(function () {
+    retrieveData()
+  }, [])
+
+  if (!userData) return <></>
+  return <div className=" flex items-center flex-wrap">
+    <Detail data={userData.name} name="Name" styles="w-1/2 my-2" />
+    <Detail data={userData.city} name="City" styles="w-1/2 my-2" />
+    <Detail data={userData.phoneNumber} name="Phone Number" styles="w-1/2 my-2" />
+    <Detail data={userData.rollno} name="Roll Number" styles="w-1/2 my-2" />
+    <Detail data={userData.sponsor} name="Sponsor" styles="w-1/2 my-2" />
+    <Detail data={userData?.attendance?.length || 0} name="Attendance" styles="w-1/2 my-2" />
+  </div>
+}
+
+function FreeTrialToCustomer({ clientId }) {
+  const [warningConvertCustomer, setWarningConvertCustomer] = useState(false)
+
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const type = searchParams.get("type")
+
+  async function convertToCustomer() {
+    try {
+      const response = await apiInstance.convertCustomerToClient(clientId);
+      if (response.status === 200) {
+        toast.success("Customer created successfully!")
+        router.push(`/club-clients/${response?.data?.customerId}`)
+      }
+    } catch (error) {
+      toast.error(error.message || "Please try again Later!")
+    }
+  }
+
+  if (Number(type) !== 3) return <></>
+  return <>
+    <button
+      onClick={() => setWarningConvertCustomer(true)}
+      className="px-4 rounded-md border-2 border-[#03632C] text-[#03632C]">
+      Make Customer
+    </button>
+    <Modal open={warningConvertCustomer} className="flex items-center justify-center">
+      <div className="max-w-[400px] bg-white p-4 rounded-md">
+        <h4 className="font-semibold text-[20px]">Do You want to conveert this free trial user to Customer?</h4>
+        <div className="mt-4 flex items-center gap-4">
+          <button
+            onClick={convertToCustomer}
+            className="bg-green-600 text-white px-4 py-2 rounded-md">
+            Yes
+          </button>
+          <button
+            className="bg-red-600 text-white px-4 py-2 rounded-md"
+            onClick={() => setWarningConvertCustomer(false)}>
+            Cancel
+          </button>
+        </div>
+      </div>
+    </Modal>
+  </>
 }

@@ -2,7 +2,6 @@
 
 import Footer from "@/components/core/Footer";
 import apiInstance from "@/helpers/api";
-import { SITE_URL } from "@/helpers/apiConfig";
 import { Modal } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
@@ -86,6 +85,12 @@ function Page({ params }) {
               </button>
             </div>
           </div>
+          <button
+            className="w-fit bg-green-800 text-white px-4 py-2 mt-10 mx-auto rounded-md"
+            onClick={() => setNewClientModal(true)}
+          >
+            New Client
+          </button>
         </div>
       </div>
       {newClientModal && <NewClientModal

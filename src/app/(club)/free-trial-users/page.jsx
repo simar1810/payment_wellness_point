@@ -1,5 +1,7 @@
 "use client";
+import { EyeIcon } from "@/components/svgs";
 import apiInstance from "@/helpers/api";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -28,7 +30,7 @@ export default function Page() {
             <p className="w-[10%] flex justify-center">Roll No</p>
             <p className="w-[12%] flex justify-center">Sponsored By</p>
             <p className="w-[12%] flex justify-center">Attendance</p>
-            {/* <p className="w-[12%] flex justify-center">Actions</p> */}
+            <p className="w-[12%] flex justify-center">Actions</p>
          </div>
          <div>
             {allClients.map((client, idx) => <UserItem
@@ -53,8 +55,8 @@ function UserItem({ idx, client }) {
       <p className="w-[10%] flex justify-center">{client.rollno}</p>
       <p className="w-[12%] flex justify-center">{client.sponsor}</p>
       <p className="w-[12%] flex justify-center">{client?.attendance?.length}</p>
-      {/* <Link className="w-[12%] flex justify-center" href={`/club-clients/${client._id}`}>
+      <Link className="w-[12%] flex justify-center" href={`/club-clients/${client._id}?type=3`}>
          <EyeIcon h={20} w={25} c={"black"} />
-      </Link> */}
+      </Link>
    </div>
 }
