@@ -32,6 +32,7 @@ export default function Page({ params }) {
   const [clientInfo, setClientInfo] = useState({});
   const [subscriptionInfo, setSubscriptionInfo] = useState([]);
   const [addSubscriptionModal, setAddSubscriptionModal] = useState(false);
+  const [deps, setDeps] = useState(false)
 
   const [subscriptionDetails, setSubscriptionDetails] = useState({
     startDate: "",
@@ -89,7 +90,7 @@ export default function Page({ params }) {
 
   useEffect(() => {
     fetchClientData();
-  }, [fetchClientData]);
+  }, [fetchClientData, deps]);
 
   useEffect(() => {
     FetchSubscriptionInfo();
@@ -435,6 +436,7 @@ export default function Page({ params }) {
                   clientId={clientid}
                   fetchClientData={fetchClientData}
                   clubSystem={clubSystem}
+                  refreshData={() => setDeps(prev => !prev)}
                 />
               </>
                 : (
