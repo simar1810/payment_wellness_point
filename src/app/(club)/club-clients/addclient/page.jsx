@@ -63,8 +63,6 @@ function Page() {
     } else if (clientInfo.email && !emailRejex.test(clientInfo.email)) {
       toast.error("please enter Email");
       return;
-    } else if (!clientInfo.id_no) {
-      toast.error("Please enter Customer ID.")
     } else if (
       clientInfo.mobileNumber === "" &&
       !mobileRejex.test(clientInfo.mobileNumber)

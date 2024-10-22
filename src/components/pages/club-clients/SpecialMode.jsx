@@ -43,17 +43,17 @@ export default function SepcialMode({ clubSystem, clientId, fetchClientData }) {
 			</p>
 		</div>
 		<div className="flex items-center mt-14 space-x-4">
-			<Link
+			{/* <Link
 				href={`/club-clients/buy-products?clientId=${clientId}`}
 				className="px-4 py-2 font-semibold text-[#036231] border-2 border-[#036231] rounded-xl"
 			>
 				+ Add Products
-			</Link>
+			</Link> */}
 			<button
 				className="font-semibold text-[#036231] px-4 py-2 border-2 border-[#036231] rounded-xl"
 				onClick={() => setIsAddModalOpened(true)}
 			>
-				+ Add Points
+				+ Volume Membership
 			</button>
 		</div>
 		{specialPoints?.pointsHistory && <PointsHistory
@@ -78,7 +78,7 @@ function AddSpecialPointsModal({ onCloseModal, refreshData, clientId }) {
 			const formData = {
 				startDate: e.currentTarget.startDate.value,
 				endDate: e.currentTarget.endDate.value,
-				paymentMode: e.currentTarget.paymentMode.value,
+				membershipType: e.currentTarget.membershipType.value,
 				invoice: e.currentTarget.invoice.value,
 				totalPoints: e.currentTarget.totalPoints.value
 			}
@@ -125,12 +125,12 @@ function AddSpecialPointsModal({ onCloseModal, refreshData, clientId }) {
 				</div>
 
 				<label className="mb-4 block">
-					Payment Mode
+					Membership Type
 					<select
-						name="paymentMode"
+						name="membershipType"
 						className="w-full text-[#808080] mt-1 px-4 py-2 focus:outline-none border-2 rounded-md cursor-pointer">
-						<option value="online" selected>Online</option>
-						<option value="cash">Cash</option>
+						<option value="volume-point" selected>Volume Point</option>
+						<option value="membership">Membership</option>
 					</select>
 				</label>
 
