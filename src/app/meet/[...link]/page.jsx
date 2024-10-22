@@ -89,7 +89,7 @@ function Page({ params }) {
             className="w-fit bg-green-800 text-white px-4 py-2 mt-10 mx-auto rounded-md"
             onClick={() => setNewClientModal(true)}
           >
-            Don't Have Customer ID
+            Don&apos;t Have Customer ID
           </button>
         </div>
       </div>
