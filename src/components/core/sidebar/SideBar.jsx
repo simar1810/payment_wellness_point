@@ -164,7 +164,7 @@ export default function Sidebar() {
             <div
               className={` rounded-lg w-full mt-1 mb-6 transition-all duration-300 ${featurePreference === "club"
                 ? "h-[230px]"
-                : " h-[0px] overflow-hidden"
+                : "overflow-hidden"
                 } `}
             >
               <Clubfeature setOpen={setOpen} />

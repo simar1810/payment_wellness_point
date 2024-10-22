@@ -266,11 +266,22 @@ export default function Page({ params }) {
                     In-Active
                   </button>
                 )
-              ) : (
-                <button className=" w-full h-[30px] text-white bg-[#EA4335] rounded">
-                  In-Active
-                </button>
-              )}
+              ) : clubSystem === 3 ? (
+                clientInfo.specialMode?.pointsHistory?.length > 0 ? (
+                  <button className="px-4 h-[30px] text-white bg-[#03632C] rounded">
+                    Active
+                  </button>
+                ) : (
+                  <button className="px-4 h-[30px] text-white bg-[#EA4335] rounded">
+                    In-Active
+                  </button>
+                )
+              )
+                : (
+                  <button className=" w-full h-[30px] text-white bg-[#EA4335] rounded">
+                    In-Active
+                  </button>
+                )}
             </div>
 
             <div className="w-full flex justify-end gap-2">
