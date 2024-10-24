@@ -5,7 +5,7 @@
       {
         "appIDs": ["YB5RW5JH8M.com.wellnessz.wellnesspoint"],
         "paths": ["/app/*"]
-        ]
+        
       }
     ]
   },
