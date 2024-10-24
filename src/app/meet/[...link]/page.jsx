@@ -166,7 +166,7 @@ function NewClientModal({ open, onClose, meetingLink }) {
         <input
           type="number"
           className="w-full py-2 px-4 mb-4 border-2 rounded-md focus:outline-none"
-          placeholder="Enter Number"
+          placeholder="Enter Mobile Number"
           name="phoneNumber"
         />
         <input
