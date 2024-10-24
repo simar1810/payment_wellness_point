@@ -74,14 +74,14 @@ function Page({ params }) {
                 className=" w-[calc(100%-150px)] h-full font-extralight outline-none px-4 "
                 placeholder="Enter Roll no"
                 value={rollNo}
-                onChange={(e) => setRollNo(e.target.value)}
+                onChange={(e) => setRollNo((e.target.value).toUpperCase())}
               />
 
               <button
                 onClick={joinMeeting}
                 className=" w-[120px] h-full bg-[#036231] text-white font-medium rounded-2xl"
               >
-                Enter Meet
+                Join Meet
               </button>
             </div>
           </div>
