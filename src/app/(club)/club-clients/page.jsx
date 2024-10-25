@@ -7,6 +7,7 @@ import apiInstance from "@/helpers/api";
 import { Backicon } from "@/components/svgs";
 import { useRouter } from "next/navigation";
 import Loader from "@/components/loader/Loader";
+import { FreeTrialUsers } from "../free-trial-users/page";
 
 function Page({ params }) {
   const { clientid } = params;
@@ -56,7 +57,11 @@ function Page({ params }) {
           <Header setSearchInput={setSearchInput} refreshClientsData={() => setMutateDep(prev => !prev)} />
         </div>
         <div className="-mt-5 p-3 overflow-scroll scrollbar-hide">
-          <Clientdetails mutateDep={mutateDep} setMutateDep={setMutateDep} searchInput={searchInput} />
+          <Clientdetails
+            mutateDep={mutateDep}
+            setMutateDep={setMutateDep}
+            showFreeTrial={true}
+            searchInput={searchInput} />
         </div>
       </div>
     </div>

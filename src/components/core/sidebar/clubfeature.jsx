@@ -45,12 +45,12 @@ function Clubfeature({ setOpen }) {
       icon: <VolumePointsIcon h={22} w={22} c={"#036231"} />,
       subroute: null,
     },
-    {
-      name: "Free Trial Users",
-      route: "/free-trial-users",
-      icon: <FaGem h={25} w={25} fill="#036231" />,
-      subroute: null,
-    },
+    // {
+    //   name: "Free Trial Users",
+    //   route: "/free-trial-users",
+    //   icon: <FaGem h={25} w={25} fill="#036231" />,
+    //   subroute: null,
+    // },
   ];
   return (
     <div className="flex flex-col h-full gap-2 mt-4">
