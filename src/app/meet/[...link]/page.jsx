@@ -20,7 +20,7 @@ function Page({ params }) {
       const { data } = await apiInstance.verifyClient(link, rollNo);
       console.log(data)
       if (data?.status && data.status === true) {
-        // router.push(data.data);
+        router.push(data.data);
         console.log(data?.response?.accountFound, data.response, data)
         toast.success(data?.message || "Joining Meet!");
       } else {

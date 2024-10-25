@@ -322,6 +322,7 @@ export default function Page({ params }) {
                 <Detail name={"City"} data={clientInfo.city} />
                 {/* <Detail name={"Customer Id"} data={clientInfo._id} /> */}
                 <Detail name={"Joining Date"} data={clientInfo.joiningDate} />
+                <Detail name={"Date Of Birth"} data={clientInfo.dob} />
                 <div className=" flex items-center gap-3">
                   <p className=" font-semibold text-sm">Attendance</p>
                   <p
