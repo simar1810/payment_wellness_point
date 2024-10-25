@@ -59,7 +59,7 @@ function UserItem({ idx, client }) {
       {/* <p className="w-[10%] flex justify-center">{client.city}</p> */}
       <p className="w-[10%] flex justify-center">{client?.attendance?.length}</p>
       <div className="w-[12%] flex justify-center">
-         <button className="w-full h-[30px] max-w-[98px] mx-auto text-white bg-gray-900 rounded">Free trial</button>
+         <button className="w-full h-[30px] max-w-[98px] mx-auto text-white bg-gray-900 rounded">Guest</button>
       </div>
       <Link className="w-[5%] flex justify-center" href={`/club-clients/${client._id}?type=3`}>
          <EyeIcon h={20} w={25} c="black" />

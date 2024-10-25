@@ -14,6 +14,7 @@ function Page() {
   const [imageURL, setImageURL] = useState("/avatar.webp");
   const today = dayjs();
   const [JoiningDate, setJoiningDate] = useState(today);
+  const [dob, setDob] = useState(today);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [clientInfo, setClientInfo] = useState({
@@ -70,16 +71,20 @@ function Page() {
       toast.error("please enter Mobile Number");
       return;
     } else {
-      setLoading(true);
+      // setLoading(true);
       try {
         const apiFormData = new FormData();
         const dayjsInstance = dayjs(JoiningDate.$d);
         const formattedDate = dayjsInstance.format("DD-MM-YYYY");
         console.log(formattedDate);
-        const newClientInfo = { ...clientInfo, joiningDate: formattedDate };
+        const newClientInfo = { ...clientInfo };
         for (const key of Object.keys(newClientInfo)) {
           apiFormData.append(key, newClientInfo[key]);
         }
+        apiFormData.append("dob", dayjs(dob).format("DD-MM-YYYY"))
+        apiFormData.append("joiningDate", dayjs(JoiningDate).format("DD-MM-YYYY"))
+        // console.log(apiFormData.get("dob"), apiFormData.get("joiningDate"))
+        // return
         const { status } = await apiInstance.registerClientManual(
           apiFormData,
           "manual"
@@ -190,15 +195,21 @@ function Page() {
                 required
                 handleChange={(e) => handleChange(e, "id_no")}
               />
+              <div className="mb-8 w-full">
+                <p>Date Of Birth:</p>
+                <div className=" h-[20px]">
+                  <DatePickerComponent
+                    label={""}
+                    setvalue={setDob}
+                  />
+                </div>
+              </div>
               <div className=" w-full">
                 <p>Joining Date:</p>
                 <div className=" h-[20px]">
                   <DatePickerComponent
-                    // value={clientInfo.JoiningDate}
                     label={""}
-                    // value={clientInfo.JoiningDate}
                     setvalue={setJoiningDate}
-                  // mindate={today}
                   />
                 </div>
               </div>
