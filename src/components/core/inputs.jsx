@@ -154,12 +154,12 @@ export const DatePicker = ({ name, value, onChange, placeholder }) => {
 };
 
 export const OnboardingFormInput = ({ ...props }) => {
-  const { title, value, handleChange, placeholder } = props;
+  const { title, value, handleChange, placeholder, type } = props;
   return (
     <div>
       <p className=' text-lg font-semibold '>{title}</p>
       <input
-        type='text'
+        type={type || 'text'}
         value={value}
         className=' h-[50px] w-full border-[1px] border-[#00000060] border-solid text-lg  rounded-xl outline-none mt-1 px-4 '
         placeholder={placeholder}
