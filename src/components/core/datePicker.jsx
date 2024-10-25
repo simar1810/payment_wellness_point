@@ -26,9 +26,9 @@ function DatePickerComponent({ mindate, label, value, setvalue, maxdate }) {
         format='DD/MM/YYYY'
         maxDate={maxdate}
         onChange={(date) => setvalue(date)}
-        /*  slotProps={{
-          textField: { component: CustomTextField },
-        }} */
+      /*  slotProps={{
+        textField: { component: CustomTextField },
+      }} */
       />
     </LocalizationProvider>
   );

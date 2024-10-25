@@ -24,7 +24,8 @@ function Page({ searchParams }) {
     sponseredByName: "",
     city: "",
     file: "",
-    id_no: ""
+    id_no: "",
+    dob: ""
   });
 
   function handleChange(e, keyValue) {
@@ -88,8 +89,11 @@ function Page({ searchParams }) {
         const formattedDate = dayjsInstance.format("YYYY-MM-DD");
         const newClientInfo = { ...clientInfo, joiningDate: formattedDate };
         for (const key of Object.keys(newClientInfo)) {
+          if (key === "dob") continue
           apiFormData.append(key, newClientInfo[key]);
         }
+        apiFormData.append("dob", clientInfo?.dob?.split("-")?.reverse()?.join("-"))
+
         const response = await apiInstance.registerClientForm(
           apiFormData,
           "form",
@@ -183,6 +187,13 @@ function Page({ searchParams }) {
                 // mindate={today}
                 />
               </div>
+              <OnboardingFormInput
+                title={"Date OF Birth"}
+                handleChange={(e) => handleChange(e, "dob")}
+                value={clientInfo.dob}
+                placeholder={"Date OF Birth"}
+                type="date"
+              />
 
               <OnboardingFormInput
                 title={"Sponsored by"}
