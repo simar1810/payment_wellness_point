@@ -18,20 +18,19 @@ export default function SingleClientinfo({ index, detail, onMutateDep }) {
       <div className="w-full text-sm py-1 text-[#292D32] font-medium flex items-center justify-around gap-1">
         <p className="w-[5%] text-center">{index + 1}</p>
         <p className="w-[12%] max-w-40 text-center">{detail.name}</p>
-        <p className="w-[12%] text-center">{detail.mobileNumber}</p>
-        {clubSystem === 2 && <>
-          <p className="w-[10%] text-center">{parseInt(detail?.activePoints).toFixed(2)}</p>
-          <p className="w-[12%] max-w-40 text-center">{Math.round(parseInt(detail?.activePoints) / parseInt(detail?.coachVolumePoint))}</p>
-        </>}
-
         <p className="w-[10%] flex justify-center items-center gap-1">
           {detail.rollno}
           <button onClick={() => setEditOpen(true)}>
             <FaEdit c="green" />
           </button>
         </p>
-
         <p className="w-[12%] text-center">{detail.sponseredByName}</p>
+        <p className="w-[12%] text-center">{detail.mobileNumber}</p>
+        {clubSystem === 2 && <>
+          <p className="w-[10%] text-center">{parseInt(detail?.activePoints).toFixed(2)}</p>
+          <p className="w-[12%] max-w-40 text-center">{Math.round(parseInt(detail?.activePoints) / parseInt(detail?.coachVolumePoint))}</p>
+        </>}
+
         <p className="w-[10%] text-center">{detail.attendance.length}</p>
 
         <div className="w-[12%] flex justify-center">

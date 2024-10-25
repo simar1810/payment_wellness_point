@@ -5,8 +5,9 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Loader from "@/components/loader/Loader";
 import { useSelector } from "react-redux";
+import { FreeTrialUsers } from "@/app/(club)/free-trial-users/page";
 
-export default function Clientdetails({ mutateDep, setMutateDep, showEntries, searchInput = "" }) {
+export default function Clientdetails({ mutateDep, setMutateDep, showEntries, showFreeTrial, searchInput = "" }) {
   const pathName = usePathname();
   const [loading, setLoading] = useState(false);
   const [clientDetails, setClientDetails] = useState([]);
@@ -47,14 +48,14 @@ export default function Clientdetails({ mutateDep, setMutateDep, showEntries, se
       <div className="w-[350%] md:w-[250%] xl:w-full mt-4 px-3 text-sm font-bold flex justify-around gap-1">
         <p className="w-[5%] flex justify-center">Sr.no</p>
         <p className="w-[12%] flex justify-center">Customer Name</p>
+        <p className="w-[10%] flex justify-center">Roll No</p>
+        <p className="w-[12%] flex justify-center">Sponsored By</p>
         <p className="w-[12%] flex justify-center">Phone Number</p>
 
         {clubSystem === 2 && <>
           <p className="w-[10%] flex justify-center">Volume Points</p>
           <p className="w-[12%] flex justify-center">Days Remaining</p>
         </>}
-        <p className="w-[10%] flex justify-center">Roll No</p>
-        <p className="w-[12%] flex justify-center">Sponsored By</p>
         <p className="w-[10%] flex justify-center">Attendance</p>
         <p className="w-[12%] flex justify-center">Status</p>
         <p className="w-[5%] flex justify-center">Actions</p>
@@ -87,6 +88,7 @@ export default function Clientdetails({ mutateDep, setMutateDep, showEntries, se
                 }
               }
             })}
+            {showFreeTrial && <FreeTrialUsers startidx={clientDetails.length} />}
             {pathName.includes("club-clients") ? (
               ""
             ) : (
