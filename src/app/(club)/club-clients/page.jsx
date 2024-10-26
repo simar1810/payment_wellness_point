@@ -1,47 +1,15 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Header } from "@/components/pages/club-clients";
 import { Clientdetails } from "@/components/pages/club-dashboard";
-import apiInstance from "@/helpers/api";
 import { Backicon } from "@/components/svgs";
 import { useRouter } from "next/navigation";
-import Loader from "@/components/loader/Loader";
-import { FreeTrialUsers } from "../free-trial-users/page";
 
-function Page({ params }) {
-  const { clientid } = params;
-  const [loading, setLoading] = useState(false);
-  const [clientDetails, setClientDetails] = useState([]);
+function Page() {
   const [mutateDep, setMutateDep] = useState(false);
   const router = useRouter();
   const [searchInput, setSearchInput] = useState("");
-
-  async function Fetchdata(search = "") {
-    setLoading(true);
-    try {
-      const { data, status } = await apiInstance.getAllClients(search);
-      if (status === 200) {
-        // console.log(data.data);
-        setClientDetails(data.data);
-      }
-    } catch (error) {
-      console.error("fetch All Dashboard error => ", error);
-    }
-    setLoading(false);
-  }
-
-  useEffect(() => {
-    Fetchdata();
-  }, [mutateDep]);
-
-  if (loading) {
-    return (
-      <div className="w-full flex items-center justify-center">
-        <Loader />
-      </div>
-    );
-  }
 
   return (
     <div className="w-full overflow-scroll p-2 scrollbar-hide">

@@ -47,7 +47,8 @@ const AuthGuardian = ({ children }) => {
             monthlyVpDeduction: data?.data?.monthlyVpDeduction ?? 100,
             subscriptionStatus,
             rollNumberInitials: data?.data?.rollNumberInitials,
-            freeTrialVPDays: data?.data?.freeTrialVPDays
+            freeTrialVPDays: data?.data?.freeTrialVPDays,
+            guestRollNo: data?.data?.guestRollNo
           };
           dispatch(setUser(user));
           dispatch(setClubSystem(parseInt(data?.data?.clubSystem) ?? 1));
