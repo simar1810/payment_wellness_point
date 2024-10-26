@@ -19,7 +19,8 @@ export default function Clientdetails({ mutateDep, setMutateDep, showEntries, sh
     try {
       const { data, status } = await apiInstance.getAllClients(searchInput);
       if (status === 200) {
-        setClientDetails(data.data);
+        const sortedItems = data?.data?.map(a => ({ ...a, sortedRollno: Number(a.rollno.slice(data.rollNolength)) })).sort((a, b) => a.sortedRollno - b.sortedRollno);
+        setClientDetails(sortedItems);
       }
     } catch (error) {
       console.error("fetch All Dashboard error => ", error);

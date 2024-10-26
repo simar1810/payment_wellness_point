@@ -123,6 +123,25 @@ const Page = ({ params }) => {
       toast.error(error.message || "Error occured, Please try again later!");
     }
   }
+
+  async function hanleEditCoach(e, key) {
+    try {
+      e.preventDefault()
+      const response = await apiInstance.updateProfileDetails({
+        guestRollNo:
+          e.currentTarget[key].value || user.freeTrialSubscriptionDays,
+      }, user._id)
+      if (response.status === 200) {
+        toast.success(response?.data?.message || "Updated Successfully")
+      } else {
+        toast.error("Please try again later")
+      }
+    } catch (error) {
+      console.error(error)
+      toast.error(error?.response?.data?.message || "Please try again later")
+    }
+  }
+
   // console.log(user)
   return (
     <div className="w-full overflow-scroll px-10 py-10 scrollbar-hide">
@@ -245,6 +264,18 @@ const Page = ({ params }) => {
               <div className="flex items-center gap-4">
                 <p>The roll number initials of the customer should start from - </p>
                 <input type="text" defaultValue={user?.rollNumberInitials || user.name.slice(0, 3).toLowerCase()} name="rollNoInitials" className="w-auto block focus:outline-none mt-2 px-4 py-2 rounded-md border-2" />
+              </div>
+              <button type="submit" className="bg-green-400 mt-4 px-4 py-2 rounded-md">Update</button>
+            </form>
+          </div>
+
+          {/* update roll number initials */}
+          <div className="w-full mt-4 mb-4 border-t-2 pt-8">
+            <div className="text-2xl font-bold">Guest Roll No Initials</div>
+            <form onSubmit={e => hanleEditCoach(e, "guestRollNoInitials")}>
+              <div className="flex items-center gap-4">
+                <p>The guest roll number initials of the customer should start from - </p>
+                <input type="text" defaultValue={user?.guestRollNo?.initials} name="guestRollNoInitials" className="w-auto block uppercase focus:outline-none mt-2 px-4 py-2 rounded-md border-2" />
               </div>
               <button type="submit" className="bg-green-400 mt-4 px-4 py-2 rounded-md">Update</button>
             </form>

@@ -505,6 +505,9 @@ class Api {
   convertCustomerToClient = (clientId) => {
     return this.init().post(`/free-trial-convert-customer/${clientId}`);
   }
+  deleteFreeUser = (customerId) => {
+    return this.init().put(`/free-trial-delete-customer`, { customerId })
+  }
 }
 
 const apiInstance = new Api();

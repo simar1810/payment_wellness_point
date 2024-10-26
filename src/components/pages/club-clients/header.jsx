@@ -85,11 +85,11 @@ function Header({ setSearchInput, refreshClientsData }) {
   }
 
   return (
-    <div className="h-[50px] w-full flex flex-col md:flex-row items-center justify-between pr-3 ">
-      <div className="flex self-start md:self-center">
+    <div className="w-full lg:mb-0 flex flex-col md:flex-row items-start lg:items-center justify-between pr-3 ">
+      <div className="flex self-start mb-auto md:self-center">
         <p className="text-xl font-medium">Customers</p>
       </div>
-      <div className="flex gap-2">
+      <div className="ml-auto flex flex-wrap items-start justify-end gap-2">
         <div className="w-[65%] h-[35px] rounded-md border-[1.4px] border-solid border-[#00000060] flex items-center gap-1 px-[3px] md:w-[200px]">
           <Searchicon h={15} w={15} c={"#B5B7C0"} />
           <input
@@ -103,7 +103,7 @@ function Header({ setSearchInput, refreshClientsData }) {
         <div className="relative" ref={dropdownRef}>
           <button
             onClick={() => setIsDropDown((prev) => !prev)}
-            className="px-4 py-1 h-[35px] md:w-[180px] text-white text-[14px] font-semibold bg-[#036231] flex items-center justify-center gap-3 rounded-md w-[115%] text-xs"
+            className="px-4 py-1 h-[35px] md:w-[180px] text-white text-[12px] sm:text-[14px] font-semibold bg-[#036231] flex items-center justify-center gap-3 rounded-md text-xs"
           >
             Add New Customer
             <span

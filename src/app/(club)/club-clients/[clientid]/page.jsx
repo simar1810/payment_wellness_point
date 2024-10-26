@@ -670,7 +670,7 @@ function FreeTrialToCustomer({ clientId }) {
       const response = await apiInstance.convertCustomerToClient(clientId);
       if (response.status === 200) {
         toast.success("Customer created successfully!")
-        router.push(`/club-clients/${response?.data?.customerId}`)
+        router.replace(`/club-clients/${response?.data?.customerId}`)
       }
     } catch (error) {
       toast.error(error.message || "Please try again Later!")
