@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import RegisterModal from "./Register";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -11,11 +11,13 @@ import { setClubSystem } from "@/redux/slices/userSlice";
 import { useDispatch } from "react-redux";
 import Footer from "@/components/core/Footer";
 import Image from "next/image";
+import { FaEye } from "react-icons/fa";
 
 const Page = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
+  const passwordRef = useRef()
 
   useEffect(() => {
     const checkClubCoach = async () => {
@@ -137,19 +139,26 @@ const Page = () => {
                       <RiLockPasswordLine size={25} className='text-gray-500' />
                     </div>
 
-                    <div className='overflow-clip px-2'>
+                    <div className='grow overflow-clip px-2'>
                       <label htmlFor='password' className='text-xs px-1'>
                         Password
                       </label>
                       <br />
-                      <input
-                        type='password'
-                        required
-                        className='font-bold bg-[#ECECEC] text-sm p-1 pt-0 outline-none  border-b-2 '
-                        name='password'
-                        id='password'
-                        placeholder='Please enter Password'
-                      />
+                      <div className="relative">
+                        <input
+                          type='password'
+                          required
+                          ref={passwordRef}
+                          className='w-full font-bold bg-[#ECECEC] text-sm p-1 outline-none  border-b-2 '
+                          name='password'
+                          id='password'
+                          onClick={e => passwordRef.current.type === ""}
+                          placeholder='Please enter Password'
+                        />
+                        <FaEye
+                          onClick={e => passwordRef.current.type === "password" ? passwordRef.current.type = "text" : passwordRef.current.type = "password"}
+                          className="w-5 h-5 absolute right-4 top-1/2 translate-y-[-100%] cursor-pointer select-none" />
+                      </div>
                     </div>
                   </div>
 
