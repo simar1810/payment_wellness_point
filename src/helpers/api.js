@@ -472,8 +472,8 @@ class Api {
   editMeeting = (data, id) => {
     return this.init().put(`/edit-meetingLink?meetingId=${id}`, data);
   }
-  getFreeTrialUsers = () => {
-    return this.init().get("/free-trial-users")
+  getFreeTrialUsers = (searchQuery) => {
+    return this.init().get(`/free-trial-users?searchQuery=${searchQuery}`)
   }
 
   editCoachFreeTrialVPDays = (data) => {
