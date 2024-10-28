@@ -1,4 +1,5 @@
 "use client";
+import { NoDataPage } from "@/components/core";
 import { EyeIcon } from "@/components/svgs";
 import apiInstance from "@/helpers/api";
 import { Modal } from "@mui/material";
@@ -27,14 +28,14 @@ export default function Page() {
    </>
 }
 
-export function FreeTrialUsers({ startidx }) {
+export function FreeTrialUsers({ startidx, searchInput }) {
    const [allClients, setAllClients] = useState([]);
    const [deps, setDeps] = useState(false)
 
    useEffect(function () {
       (async function () {
          try {
-            const response = await apiInstance.getFreeTrialUsers();
+            const response = await apiInstance.getFreeTrialUsers(searchInput);
             if (response.data.success) {
                console.log(response.data.payload)
                const sortedUsers = response.data.payload
@@ -46,7 +47,12 @@ export function FreeTrialUsers({ startidx }) {
             toast.error(error?.response?.message || error.message)
          }
       })()
-   }, [deps])
+   }, [searchInput, deps])
+
+   if (startidx === 0 && allClients.length === 0) return <div className="w-[30%] sm:w-full">
+      <NoDataPage />
+   </div>
+
 
    return <div className="px-3">
       {allClients.map((client, idx) => <UserItem
