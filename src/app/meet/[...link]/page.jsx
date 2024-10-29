@@ -146,6 +146,12 @@ function NewClientModal({ open, onClose, meetingLink }) {
         });
       }
     } catch (error) {
+      if (error?.response?.data?.isPermanentClient) setClientCreated({
+        opened: true,
+        rollNo: error?.response?.data?.rollno,
+        meetRedirectLink: error?.response?.data?.meetRedirectLink,
+        accountDeactivated: error?.response?.data?.accountDeactivated || false
+      });
       toast.error(error?.response?.data?.message || error.message || "Internal Server Error!");
     } finally {
       setJoining(false)
