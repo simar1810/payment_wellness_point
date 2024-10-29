@@ -100,7 +100,8 @@ function Page({ searchParams }) {
           id
         );
         if (response.status) {
-          toast.success("Customer Created Successfully");
+          console.log(response)
+          toast.success(response?.data?.message || "Customer Created Successfully");
           setClientCreated(true)
           // router.push("https://www.wellnessz.in/");
         } else {
