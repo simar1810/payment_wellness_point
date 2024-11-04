@@ -113,7 +113,7 @@ export default function Page({ params }) {
             </p>
           </div>
         ) : (
-          <div className="w-[270%] sm:w-full px-5 py-2 flex  font-semibold text-lg ">
+          <div className="w-[270%] sm:w-full px-5 py-2 flex items-center font-semibold text-lg ">
             <p className=" w-[5%]">Sr No.</p>
             <p className=" w-[15%] flex items-center justify-center">
               Client Name
@@ -126,6 +126,9 @@ export default function Page({ params }) {
             </p>
             <p className=" w-[15%] flex items-center justify-center">
               Joining Time
+            </p>
+            <p className=" w-[15%] flex items-center justify-center">
+              Number Of Times Entered
             </p>
           </div>
         )}
@@ -187,6 +190,9 @@ function SingleMeetingInfo({ info, sno }) {
         <p className=" w-[15%] flex items-center justify-center">
           {info?.attendance?.time ?? "N/A"}
         </p>
+        <p className=" w-[15%] flex items-center justify-center">
+          {info?.attendance?.numberOfTimesEnteredMeet ?? "N/A"}
+        </p>
       </div>
     </div>
   );
@@ -215,6 +221,7 @@ export function ReocurrMeetingInfo({ info }) {
                 </p>
                 <p className="w-[18%]  text-center">{item?.rollno ?? "N/A"}</p>
                 <p className="w-[18%]  text-center">{item?.time ?? "N/A"}</p>
+                <p className="w-[18%]  text-center">{item?.numberOfTimesEnteredMeet ?? "N/A"}</p>
               </div>
             ))}
         </div>
