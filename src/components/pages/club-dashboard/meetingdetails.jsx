@@ -285,12 +285,14 @@ export default function Meetingdetails({ showEntries }) {
           <p className="w-[8%] flex justify-center text-center">Date</p>
           <p className="w-[8%] flex justify-center text-center">Time</p>
           <p className="w-[10%] flex justify-center text-center">Attendance</p>
+          <p className="w-[10%] flex justify-center text-center">Total Attendance</p>
           <p className="w-[10%] flex justify-center text-center">
             Meeting Type
           </p>
           <p className="w-[10%] flex justify-center text-center">Club Type</p>
           <p className="w-[10%] flex justify-center text-center">Topics</p>
-          <p className="w-[6%] flex justify-center text-center"></p>
+          <p className="w-[3%] flex justify-center text-center"></p>
+          <p className="w-[3%] flex justify-center text-center"></p>
         </div>
 
         <div className=" w-full h-[1.2px] bg-[#EEEEEE] my-2"></div>
@@ -452,6 +454,10 @@ function SingleMeetingInfo({ index, meetingInfo, Fetchdata, onSetEditMeetingId }
             <Link href={`/meeting/${wellnesszMeetId}`}>
               <EyeIcon h={15} w={15} c="#000" />
             </Link>
+          </p>
+
+          <p className="w-[10%] flex justify-center items-center gap-2">
+            {meetingInfo.totalTimesUsersTriedJoining}
           </p>
 
           <p className="w-[10%] flex justify-center">
