@@ -99,7 +99,7 @@ function Page({ searchParams }) {
           "form",
           id
         );
-        if (response.status) {
+        if (response?.data?.status) {
           console.log(response)
           toast.success(response?.data?.message || "Customer Created Successfully");
           setClientCreated(true)
